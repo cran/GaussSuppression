@@ -1,8 +1,8 @@
 Package: GaussSuppression
 Type: Package
 Title: Tabular Data Suppression using Gaussian Elimination
-Version: 0.3.0
-Date: 2022-05-24
+Version: 0.4.0
+Date: 2022-06-28
 Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"),
                     email = "oyl@ssb.no"),
              person("Daniel", "Lupp", role = c("aut")),        
@@ -19,9 +19,9 @@ RoxygenNote: 7.1.2
 Suggests: testthat (>= 3.0.0)
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2022-05-24 14:26:05 UTC; oyl
+Packaged: 2022-06-28 13:57:51 UTC; oyl
 Author: Øyvind Langsrud [aut, cre],
   Daniel Lupp [aut],
   Hege Bøvelstad [ctb]
 Repository: CRAN
-Date/Publication: 2022-05-24 18:40:02 UTC
+Date/Publication: 2022-06-28 14:30:02 UTC
