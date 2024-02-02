@@ -8,6 +8,10 @@ test_that("GaussSuppressionFromData works", {
 
 # Sample with seed inside test_that do not work
 z3 <- SSBtoolsData("z3")
+upper <- z3$region %in% LETTERS
+z3$region[upper] <- paste0(z3$region[upper], 2)
+z3$region[!upper] <- paste0(toupper(z3$region[!upper]), 1)
+
 mm <- SSBtools::ModelMatrix(z3[, 1:6], crossTable = TRUE, sparse = FALSE)
 x <- mm$modelMatrix  
 k <- 1:20000
@@ -17,7 +21,8 @@ x[k] <- x[sample_k]
 
 
 test_that("Advanced with integer overflow", {
-  skip("Strange behaviour. Test works, but not when run inside Check package")
+  #skip("Strange behaviour. Test works, but not when run inside Check package")
+  skip_on_cran()  # The above problem was caused by different character sorting in different systems
   
   a <- GaussSuppressionFromData(z3, c(1:6), 7, x = mm$modelMatrix , crossTable = mm$crossTable, maxN = 5, printInc = printInc)
   expect_identical(sum(which(a$suppressed)), 599685L)
@@ -140,6 +145,19 @@ test_that("DominanceRule and NcontributorsRule + CandidatesNum + singleton + for
   expect_identical(as.numeric(which(b$primary)), c(8, 18, 23, 53, 63, 78, 83, 87, 90, 97, 98))
   
   
+  z$seq2 <- (1:nrow(z))^2 
+  
+  aseq2 <- GaussSuppressionFromData(z, dimVar = c("region", "fylke", "kostragr", "hovedint"), 
+                                    numVar = c("seq2", "value"), 
+                                    candidatesVar = "value",
+                                    dominanceVar = "value",
+                                    charVar = "char", candidates = CandidatesNum, 
+                                    primary = DominanceRule, singletonMethod = "sub2Sum",
+                                    n = c(1, 2), k = c(65, 85), printInc = printInc)
+  
+  expect_identical(a[names(a)], aseq2[names(a)])
+  
+  
   z$char <- paste0("char", 1:nrow(z))
   d1 <- GaussSuppressionFromData(z, dimVar = c("region", "fylke", "kostragr", "hovedint"), numVar = "value", charVar = "char", 
                                 candidates = CandidatesNum, primary = NcontributorsRule, singletonMethod = "none",
@@ -257,7 +275,8 @@ test_that("DominanceRule and NcontributorsRule + CandidatesNum + singleton + for
     sum_suppressed <- integer(0)
     zz = z[sample.int(nrow(z), 100, replace = TRUE), ]
     for (c2 in c("F", "T")) 
-      for (c3 in c("F", "T", "H")) {
+      for (c3 in c("F", "T", "H"))
+       for (c4 in c("F", "T")) {
         b <- GaussSuppressionFromData(zz, 
                                       dimVar = c("region", "fylke", "kostragr", "hovedint"), 
                                       numVar = "value", charVar = "char", 
@@ -265,10 +284,11 @@ test_that("DominanceRule and NcontributorsRule + CandidatesNum + singleton + for
                                       candidates = CandidatesNum, 
                                       primary = NcontributorsRule,  
                                       singleton = SingletonUniqueContributor, 
-                                      singletonMethod = paste0("numF", c2, c3))
+                                      singletonMethod = paste0("numF", c2, c3, c4))
         sum_suppressed <- c(sum_suppressed, sum(b$suppressed))
       }
-    expect_equal(sum_suppressed, c(49, 51, 53, 49, 52, 55))
+    expect_equal(sum_suppressed, c(49, 55, 51, 55, 53, 55, 49, 57, 52, 57, 55, 57))
+    
     # Why extra primary needed for 5:Total when "numFTH"
     # can be seen by looking at 
     # b[b$region == 5, ]
@@ -277,7 +297,7 @@ test_that("DominanceRule and NcontributorsRule + CandidatesNum + singleton + for
     # zz[zz$fylke == 5 & zz$hovedint == "soshjelp", ]  
     
     sum_suppressed <- integer(0)
-    for (singletonMethod  in c("numFFF", "numtFF","numTFF", "numtTT", "numtTH")) {
+    for (singletonMethod  in c("numFFF", "numtFF","numTFF", "numtTT", "numtTH", "numtTFT", "numtTHT")) {
         b <- GaussSuppressionFromData(zz, 
                                       dimVar = c("region", "fylke", "kostragr", "hovedint"), 
                                       numVar = "value", charVar = "char", 
@@ -289,7 +309,8 @@ test_that("DominanceRule and NcontributorsRule + CandidatesNum + singleton + for
           inputInOutput = c(FALSE, TRUE)) # singleton not in publish and therefore not primary suppressed  
         sum_suppressed <- c(sum_suppressed, sum(b$suppressed))
       }
-    expect_equal(sum_suppressed, c(17, 18, 18, 19, 19))
+    expect_equal(sum_suppressed, c(17, 18, 18, 19, 19, 23, 23))
+    
     
     # To make non-suppressed singletons
     SUC <- function(..., removeCodes, primary) SingletonUniqueContributor(..., removeCodes = character(0), primary = integer(0))
@@ -307,8 +328,43 @@ test_that("DominanceRule and NcontributorsRule + CandidatesNum + singleton + for
       sum_suppressed <- c(sum_suppressed, c(59, 59, 67))
     }
     
+    zz$char[1:15] <- "char5"
+    expect_warning({b <- GaussSuppressionFromData(zz, 
+                                  dimVar = c("region", "fylke", "kostragr", "hovedint"), 
+                                  numVar = "value", charVar = "char", 
+                                  maxN = 2, printInc = printInc, 
+                                  candidates = CandidatesNum, 
+                                  primary = NcontributorsRule,  
+                                  singleton = SingletonUniqueContributor, 
+                                  singletonMethod = "numFTFW")})
+    expect_equal(sum(b$suppressed), 51)  # Here "if (s_unique == primarySingletonNum[i])" in SSBtools::GaussSuppression matters. 
+    
+    
+    set.seed(193)
+    zz$A <- sample(paste0("A", c(1, 1, 1, 1, 1, 2, 2, 2, 3, 4)), nrow(zz), replace = TRUE)
+    zz$B <- sample(paste0("B", c(1, 1, 1, 1, 1, 2, 2, 2, 3, 4)), nrow(zz), replace = TRUE)
+    rcd <- data.frame(char = "char2", A = c("A1", "A2"), B = "B1")
+    removeCodes <- list(NULL, rcd, as.list(rcd))
+    k <- integer(0)
+    for (specialMultiple in c(FALSE, TRUE)) for (i in 1:3) {
+      b <- GaussSuppressionFromData(zz, 
+                                    dimVar = c("region", "fylke", "kostragr", "hovedint"), 
+                                    numVar = "value", charVar = c("char","A","B"), 
+                                    maxN = 2, printInc = printInc, 
+                                    candidates = CandidatesNum, 
+                                    primary = NcontributorsRule,  
+                                    singleton = SingletonUniqueContributor, 
+                                    singletonMethod = "numTTTTT", output = "inputGaussSuppression",
+                                    specialMultiple = specialMultiple,
+                                    removeCodes = removeCodes[[i]])
+      k <- c(k, 0L, as.vector(table(b$singleton)[as.character(unique(b$singleton))]))
+    }
+    expect_equal(k, c(0, 1, 1, 1, 1, 1, 2, 19, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 
+                      2, 20, 1, 1, 1, 0, 1, 29, 0, 2, 6, 3, 9, 9, 1, 0, 2, 
+                      5, 3, 9, 10, 1, 0, 2, 5, 1, 1, 2, 17, 2))
   }
 })
+
 
 
 test_that("Interpret primary output correctly", {
@@ -371,5 +427,39 @@ test_that("Interpret primary output correctly", {
   expect_true(all(dim(e3) == c(6, 1)))
   
 })
+
+
+test_that("More NumSingleton", {
+  
+  sum_suppressed <- integer(0)
+  for (seed in c(116162, 643426)) {
+    set.seed(seed)
+    z <- SSBtoolsData("magnitude1")
+    set.seed(seed)
+    z$company <- z$company[sample.int(20)]
+    z$value <- z$value[sample.int(20)]
+    dataset <- SSBtools::SortRows(aggregate(z["value"], z[1:5], sum))
+    for (c3 in c("F", "T", "H")) for (c4 in c("F", "t", "T")) for (c5 in c("F", "t", "T")) {
+      if (!(c4 == "F" & c5 != "F")) {
+        singletonMethod <- paste0("numTt", c3, c4, c5)
+        output <- SuppressDominantCells(data = dataset, numVar = "value", dimVar = c("sector4", "geo"), contributorVar = "company", n = 1, k = 80, singletonMethod = singletonMethod,
+                                        printInc = FALSE)
+        sum_suppressed <- c(sum_suppressed, sum(output$suppressed))
+      }
+    }
+    
+  }
+  
+  expect_equal(sum_suppressed, c(8, 11, 13, 13, 11, 13, 13, 10, 11, 13, 13, 11, 13, 13, 10, 
+                                 11, 13, 13, 11, 13, 13, 7, 9, 10, 12, 10, 11, 12, 8, 10, 10, 
+                                 12, 11, 11, 12, 8, 10, 10, 12, 11, 11, 12))  
+  
+})
+
+
+
+
+
+
 
 

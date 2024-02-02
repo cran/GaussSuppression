@@ -36,7 +36,15 @@
 #' Then, negative indices from \code{\link{GaussSuppression}} using 
 #' `unsafeAsNegative = TRUE` will be included in the output. 
 #' Singleton problems may, however, be present even if it cannot be seen as warning/output. 
-#' In some cases, the problems can be detected by \code{\link{GaussSuppressDec}}.  
+#' In some cases, the problems can be detected by \code{\link{GaussSuppressDec}}. 
+#' 
+#' In some cases, cells that are forced, hidden, or primary suppressed can overlap.
+#' For these situations, forced has precedence over hidden and primary. 
+#' That is, if a cell is both forced and hidden, it will be treated as a forced cell and thus published.
+#' Similarly, any primary suppression of a forced cell will be ignored 
+#' (see parameter `whenPrimaryForced` to \code{\link{GaussSuppression}}).
+#' It is, however, meaningful to combine primary and hidden. 
+#' Such cells will be protected while also being assigned the `NA` value in the `suppressed` output variable.
 #'
 #' @param data 	  Input data as a data frame
 #' @param dimVar The main dimensional variables and additional aggregating variables. This parameter can be  useful when hierarchies and formula are unspecified. 
@@ -116,6 +124,12 @@
 #'               In addition, `TRUE` and `FALSE` are allowed as alternatives to  `"always"` and `"no"`.
 #'               see details. 
 #'               
+#' @param  lpPackage When non-NULL, intervals by \code{\link{ComputeIntervals}} 
+#'                   will be included in the output.
+#'                   See its documentation for valid parameter values for 'lpPackage'.
+#'                   Please note that interval calculations may have a 
+#'                   different interface in future versions.
+#'                                 
 #'                                                            
 #' @param ... Further arguments to be passed to the supplied functions and to \code{\link{ModelMatrix}} (such as `inputInOutput` and `removeEmpty`).
 #'
@@ -199,7 +213,8 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
                            freqVarNew = rev(make.unique(c(names(data), "freq")))[1],
                            nUniqueVar = rev(make.unique(c(names(data), "nUnique")))[1],
                            forcedInOutput = "ifNonNULL",
-                           unsafeInOutput = "ifForcedInOutput"){ 
+                           unsafeInOutput = "ifForcedInOutput",
+                           lpPackage = NULL){ 
   if (!is.null(spec)) {
     if (is.call(spec)) {
       spec <- eval(spec)
@@ -225,6 +240,24 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
     }
     stop("spec must be a properly named list")
   }
+  
+  
+  # Possible development function as input
+  # Special temporary feature 
+  if (is.function(output)) {
+    OutputFunction <- output
+    output <- "publish"
+  } else {
+    if (!is.null(lpPackage)) {
+      if (!require(lpPackage, character.only = TRUE, quietly = TRUE)) {
+        stop(paste0("Package '", lpPackage, "' is not available."))
+      }
+      OutputFunction <- OutputIntervals
+    } else {
+      OutputFunction <- NULL
+    }
+  }
+  
   
   if(!(output %in% c("publish", "inner", "publish_inner", "publish_inner_x", "publish_x", "inner_x", "input2functions", 
                      "inputGaussSuppression", "inputGaussSuppression_x", "outputGaussSuppression", "outputGaussSuppression_x",
@@ -458,7 +491,16 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
     }
     uniqueCharVar <- charVar[!(charVar %in% dVar)]
     if (length(uniqueCharVar)) {
-      charData <- aggregate(data[uniqueCharVar], data[unique(dVar)], function(x) x[1])
+      if (length(uniqueCharVar) == 1) {
+        charData <- aggregate(data[uniqueCharVar], data[unique(dVar)], function(x) x[1])
+      } else {
+        charData <- aggregate(data[uniqueCharVar], data[unique(dVar)], function(x) {
+          if (all(x == x[1])) {
+            return(x[1])
+          }
+          NA_character_
+        })
+      }
     }
     data[[nUniqueVar]] <- 1L
     data <- aggregate(data[unique(c(freqVar, numVar, weightVar, nUniqueVar))], data[unique(dVar)], sum) 
@@ -492,7 +534,9 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
       }
       data[uniqueCharVar] <- charData[uniqueCharVar]
       rm(charData)
-      data[uniqueCharVar][data[[nUniqueVar]] > 1, ] <- NA  # uniqueCharVar created as the first row is ok when the first row is the only row
+      if (length(uniqueCharVar) == 1) {    # already NA when length(uniqueCharVar) > 1
+        data[uniqueCharVar][data[[nUniqueVar]] > 1, ] <- NA  # uniqueCharVar created as the first row is ok when the first row is the only row
+      }
     }
     if (printInc) {
       cat(".")
@@ -560,8 +604,10 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
   
   if(!is.null(forced)){
     if (!is.logical(forced)) {   # logical allowed in  SSBtools::GaussSuppression
-      if(min(forced) < 0 | max(forced) > m){
-        stop("forced input outside range")
+      if (length(forced)) {
+        if (min(forced) < 0 | max(forced) > m) {
+          stop("forced input outside range")
+        }
       }
       forcedA <- rep(FALSE, m)
       forcedA[forced] <- TRUE
@@ -597,6 +643,13 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
     secondary <- GaussSuppression(x = x, candidates = candidates, primary = primary, forced = forced, hidden = hidden, singleton = singleton, singletonMethod = singletonMethod, printInc = printInc, whenEmptyUnsuppressed = NULL, xExtraPrimary = xExtraPrimary, 
                                   unsafeAsNegative = TRUE, ...)
   }
+  
+  # Use of special temporary feature
+  if (!is.null(OutputFunction)) {
+    environment(OutputFunction) <- environment()
+    return(OutputFunction(...))
+  }
+  
   
   if (output == "secondary") {
     if (unsafeInOutput %in% c("ifany", "always")) {

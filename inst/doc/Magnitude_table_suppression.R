@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 options(rmarkdown.html_vignette.check_title = FALSE)
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -11,7 +11,7 @@ if (htmltables) {
     source("GaussKable.R")
     source("KableMagnitudeTable.R")
     P <- function(...) G(timevar = "geo", ...)
-    M <- function(...) KableMagnitudeTable(..., numVar = "value", timevar = "geo")
+    M <- function(...) KableMagnitudeTable(..., numVar = "value", timevar = "geo", singletonMethod = "none")
 } else {
     P <- function(...) cat("Formatted table not avalable")
     M <- P

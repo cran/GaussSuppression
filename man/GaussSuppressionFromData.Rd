@@ -36,7 +36,8 @@ GaussSuppressionFromData(
   freqVarNew = rev(make.unique(c(names(data), "freq")))[1],
   nUniqueVar = rev(make.unique(c(names(data), "nUnique")))[1],
   forcedInOutput = "ifNonNULL",
-  unsafeInOutput = "ifForcedInOutput"
+  unsafeInOutput = "ifForcedInOutput",
+  lpPackage = NULL
 )
 }
 \arguments{
@@ -148,6 +149,12 @@ In addition, \code{TRUE} and \code{FALSE} are allowed as alternatives to  \code{
 One of \code{"ifForcedInOutput"} (default), \code{"always"}, \code{"ifany"} and \code{"no"}.
 In addition, \code{TRUE} and \code{FALSE} are allowed as alternatives to  \code{"always"} and \code{"no"}.
 see details.}
+
+\item{lpPackage}{When non-NULL, intervals by \code{\link{ComputeIntervals}}
+will be included in the output.
+See its documentation for valid parameter values for 'lpPackage'.
+Please note that interval calculations may have a
+different interface in future versions.}
 }
 \value{
 Aggregated data with suppression information
@@ -188,6 +195,14 @@ Then, negative indices from \code{\link{GaussSuppression}} using
 \code{unsafeAsNegative = TRUE} will be included in the output.
 Singleton problems may, however, be present even if it cannot be seen as warning/output.
 In some cases, the problems can be detected by \code{\link{GaussSuppressDec}}.
+
+In some cases, cells that are forced, hidden, or primary suppressed can overlap.
+For these situations, forced has precedence over hidden and primary.
+That is, if a cell is both forced and hidden, it will be treated as a forced cell and thus published.
+Similarly, any primary suppression of a forced cell will be ignored
+(see parameter \code{whenPrimaryForced} to \code{\link{GaussSuppression}}).
+It is, however, meaningful to combine primary and hidden.
+Such cells will be protected while also being assigned the \code{NA} value in the \code{suppressed} output variable.
 }
 \examples{
 

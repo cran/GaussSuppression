@@ -702,7 +702,7 @@ contributor are primary suppressed.</p>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">dimVar=</span> <span class="fu">c</span>(<span class="st">&quot;sector4&quot;</span>, <span class="st">&quot;geo&quot;</span>), </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">maxN=</span><span class="dv">1</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*4] Checking ....</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttH: ..................</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ..............::::</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          sector4      geo value nRule nAll primary suppressed</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          Total    Total 462.3    20   20   FALSE      FALSE</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2          Total  Iceland  37.1     4    4   FALSE      FALSE</span></span>
@@ -722,7 +722,7 @@ contributor are primary suppressed.</p>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16  Governmental    Spain   9.2     2    2   FALSE       TRUE</span></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17      Industry    Total  57.8     6    6   FALSE      FALSE</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18      Industry  Iceland  20.3     3    3   FALSE       TRUE</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19      Industry Portugal  29.1     2    2   FALSE      FALSE</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19      Industry Portugal  29.1     2    2   FALSE       TRUE</span></span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20      Industry    Spain   8.4     1    1    TRUE       TRUE</span></span></code></pre></div>
 <p>In the output, the number of contributors is in columns
 <code>nRule</code> and <code>nAll</code>. The two columns are equal
@@ -822,7 +822,8 @@ Industry
 (3) </span>
 </td>
 <td style="text-align:right;border-right:1px solid LightGray;">
-<span style="     ">29.1 (2) </span>
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #8F00EF !important;">29.1
+(2) </span>
 </td>
 <td style="text-align:right;border-right:1px solid LightGray;">
 <span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">8.4
@@ -865,7 +866,7 @@ the cell total.</p>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">dimVar=</span> <span class="fu">c</span>(<span class="st">&quot;sector4&quot;</span>, <span class="st">&quot;geo&quot;</span>), </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">n =</span> <span class="dv">1</span>, <span class="at">k =</span> <span class="dv">80</span>, <span class="at">allDominance =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*4] Checking ....</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttH: ................</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ..............::</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          sector4      geo value primary.1:80 primary suppressed</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          Total    Total 462.3    0.2089552   FALSE      FALSE</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2          Total  Iceland  37.1    0.4528302   FALSE      FALSE</span></span>
@@ -879,11 +880,11 @@ the cell total.</p>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Entertainment  Iceland  16.8    1.0000000    TRUE       TRUE</span></span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 Entertainment Portugal   9.4    0.7553191   FALSE       TRUE</span></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Entertainment    Spain 105.3    0.7350427   FALSE      FALSE</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13  Governmental    Total  32.8    0.6585366   FALSE      FALSE</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13  Governmental    Total  32.8    0.6585366   FALSE       TRUE</span></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14  Governmental  Iceland   0.0    0.0000000   FALSE      FALSE</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15  Governmental Portugal  23.6    0.9152542    TRUE       TRUE</span></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16  Governmental    Spain   9.2    0.7065217   FALSE       TRUE</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17      Industry    Total  57.8    0.4446367   FALSE      FALSE</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17      Industry    Total  57.8    0.4446367   FALSE       TRUE</span></span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18      Industry  Iceland  20.3    0.4729064   FALSE       TRUE</span></span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19      Industry Portugal  29.1    0.8831615    TRUE       TRUE</span></span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20      Industry    Spain   8.4    1.0000000    TRUE       TRUE</span></span></code></pre></div>
@@ -970,7 +971,8 @@ Governmental
 (71%) </span>
 </td>
 <td style="text-align:right;font-weight: bold;background-color: #dcf1fc !important;border-right:1px solid LightGray;">
-<span style=" font-weight: bold;    ">32.8 (66%) </span>
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #8F00EF !important;">32.8
+(66%) </span>
 </td>
 </tr>
 <tr>
@@ -990,7 +992,8 @@ Industry
 (100%) </span>
 </td>
 <td style="text-align:right;font-weight: bold;background-color: #dcf1fc !important;border-right:1px solid LightGray;">
-<span style=" font-weight: bold;    ">57.8 (44%) </span>
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #8F00EF !important;">57.8
+(44%) </span>
 </td>
 </tr>
 <tr>
@@ -1012,7 +1015,8 @@ Total
 </tr>
 </tbody>
 </table>
-<p><br />
+<p>Note that this table, as well as Table 2, is discussed below in the
+section on the singleton problem.<br />
 <br />
 </p>
 </div>
@@ -1031,7 +1035,7 @@ including the variables “sector2” and “eu”.</p>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">dimVar=</span> <span class="fu">c</span>(<span class="st">&quot;sector4&quot;</span>, <span class="st">&quot;sector2&quot;</span>, <span class="st">&quot;geo&quot;</span>, <span class="st">&quot;eu&quot;</span>), </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">k =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">99</span>))</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*5-&gt;10*6] Checking ....</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttH: ...................</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: .............::::::</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   sector4      geo value primary suppressed</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   Total    Total 462.3   FALSE      FALSE</span></span>
@@ -1268,7 +1272,7 @@ input:</p>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">hierarchies =</span> dimlists,  </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">k =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">99</span>))</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*4] Checking ....</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttH: ...................</span></span></code></pre></div>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: .............::::::</span></span></code></pre></div>
 <p><br />
 <br />
 </p>
@@ -1285,7 +1289,7 @@ contributors are primary suppressed.</p>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">maxN=</span><span class="dv">2</span>,</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">removeEmpty =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*5-&gt;10*6] Checking ....</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttH: .................</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ............:::::</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        geo sector4 value nRule nAll primary suppressed</span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    Total   Total 462.3    20   20   FALSE      FALSE</span></span>
@@ -1744,7 +1748,7 @@ contributors primary suppression.</p>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">contributorVar =</span> <span class="st">&quot;company&quot;</span>)</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [preAggregate 20*6-&gt;20*7]</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*7-&gt;10*7] Checking .....</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttH: ..................</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ............::::::</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   sector4      geo freq value nRule nAll primary suppressed</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   Total    Total   20 462.3     4    4   FALSE      FALSE</span></span>
@@ -1983,7 +1987,7 @@ primary suppression.</p>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">k =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">99</span>))</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [preAggregate 20*6-&gt;20*7]</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*7-&gt;10*7] Checking .....</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttH: ..............</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: .........:::::</span></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        geo sector4 freq value primary suppressed</span></span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    Total   Total   20 462.3   FALSE      FALSE</span></span>
@@ -2113,7 +2117,7 @@ Industry
 <span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #8F00EF !important;">20.3</span>
 </td>
 <td style="text-align:right;font-weight: bold;background-color: #dcf1fc !important;border-right:1px solid LightGray;">
-<span style=" font-weight: bold;    ">37.5</span>
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #8F00EF !important;">37.5</span>
 </td>
 <td style="text-align:right;font-weight: bold;background-color: #dcf1fc !important;border-right:1px solid LightGray;">
 <span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #8F00EF !important;">57.8</span>
@@ -2206,7 +2210,7 @@ a different formula.<br />
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">k =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">99</span>))</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [preAggregate 20*6-&gt;20*7]</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*7-&gt;10*7] Checking .....</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttH: ............</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ............</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         sector4     geo freq value primary suppressed</span></span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1         Total   Total   20 462.3   FALSE      FALSE</span></span>
@@ -2420,15 +2424,27 @@ suppressed due to the default handling of the singleton problem. The
 reason is that <em>Entertainment:Iceland</em> has a single contributor.
 This contributor can reveal <em>Entertainment:Portugal</em> if
 <em>Entertainment:Spain</em> is not suppressed.</p>
-<p>Note that a similar unsolved problem occurs,
-<em>Entertainment:Iceland</em> can reveal <em>Industry:Iceland</em>. The
-reason why this problem is not solved is that <em>Industry:Iceland</em>
-is secondary suppressed. The implemented singleton methods for magnitude
-tables add virtual primary suppressed cells prior to the secondary
-suppression algorithm. The sum of <em>Entertainment:Iceland</em> and
-<em>Entertainment:Portugal</em> is therefore primary suppressed, but not
-the sum of <em>Entertainment:Iceland</em> and <em>Industry:Iceland</em>.
-This may change in future versions.</p>
+<p>Here it might appear that the table contains another issue,
+<em>Entertainment:Iceland</em> can reveal <em>Industry:Iceland</em>.
+However, this can be considered ok in this case.
+<em>Industry:Iceland</em> is secondary suppressed and the only reason
+for this is to protect <em>Entertainment:Iceland</em>.</p>
+<p>Nevertheless, in most cases, secondary suppressed cells introduce
+further complexity to the handling of singletons. A part of the
+singleton handling of magnitude tables is to add virtual primary
+suppressed cells prior to the secondary suppression algorithm. Secondary
+suppressed cells cannot, therefore, be treated in this way. However,
+another part of the singleton handling solves many of the remaining
+problems. This is done within the suppression algorithm.</p>
+<p>Here we can observe the effect of this in Tables 2 and 3. By using
+<code>singletonMethod = &quot;none&quot;</code> in Table 2,
+<em>Industry:Portugal</em> will not be suppressed. In that case,
+<em>Industry:Spain</em> can reveal <em>Industry:Iceland</em> and
+consequently <em>Entertainment:Iceland</em>. In Table 3,
+<em>Governmental:Total</em> and <em>Industry:Total</em> are suppressed
+due to advanced singleton handling. In fact, by using
+<code>singletonMethod = &quot;none&quot;</code>, all tables above will be
+suppressed differently.</p>
 </div>
 
 
