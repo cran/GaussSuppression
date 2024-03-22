@@ -1,8 +1,8 @@
 Package: GaussSuppression
 Type: Package
 Title: Tabular Data Suppression using Gaussian Elimination
-Version: 0.8.0
-Date: 2024-02-02
+Version: 0.8.3
+Date: 2024-03-22
 Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"),
                     email = "oyl@ssb.no"),
              person("Daniel", "Lupp", role = c("aut")),        
@@ -27,14 +27,14 @@ BugReports: https://github.com/statisticsnorway/GaussSuppression/issues
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Suggests: formattable, kableExtra, knitr, rmarkdown, testthat (>=
-        3.0.0), lpSolve, Rsymphony, Rglpk, slam
+        3.0.0), lpSolve, Rsymphony, Rglpk, slam, highs
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2024-02-02 14:54:58 UTC; oyl
+Packaged: 2024-03-22 11:46:31 UTC; oyl
 Author: Øyvind Langsrud [aut, cre],
   Daniel Lupp [aut],
   Hege Bøvelstad [ctb],
   Statistics Norway [cph]
 Repository: CRAN
-Date/Publication: 2024-02-02 15:20:12 UTC
+Date/Publication: 2024-03-22 13:50:02 UTC
