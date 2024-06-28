@@ -1,11 +1,13 @@
 Package: GaussSuppression
 Type: Package
 Title: Tabular Data Suppression using Gaussian Elimination
-Version: 0.8.5
-Date: 2024-05-22
+Version: 0.8.8
+Date: 2024-06-28
 Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"),
-                    email = "oyl@ssb.no"),
-             person("Daniel", "Lupp", role = c("aut")),        
+                    email = "oyl@ssb.no",
+                    comment = c(ORCID = "0000-0002-1380-4396")),
+             person("Daniel", "Lupp", role = c("aut"),
+                    comment = c(ORCID = "0000-0003-3575-1691")),        
              person("Hege", "Bøvelstad", role = c("ctb")),
              person("Vidar Norstein", "Klungre", role = "rev"),
              person("Statistics Norway", role = "cph"))
@@ -32,11 +34,11 @@ Suggests: formattable, kableExtra, knitr, rmarkdown, testthat (>=
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2024-05-22 08:40:40 UTC; oyl
-Author: Øyvind Langsrud [aut, cre],
-  Daniel Lupp [aut],
+Packaged: 2024-06-28 08:56:07 UTC; oyl
+Author: Øyvind Langsrud [aut, cre] (<https://orcid.org/0000-0002-1380-4396>),
+  Daniel Lupp [aut] (<https://orcid.org/0000-0003-3575-1691>),
   Hege Bøvelstad [ctb],
   Vidar Norstein Klungre [rev],
   Statistics Norway [cph]
 Repository: CRAN
-Date/Publication: 2024-05-22 09:00:03 UTC
+Date/Publication: 2024-06-28 09:20:09 UTC
