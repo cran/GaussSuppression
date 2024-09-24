@@ -1,14 +1,14 @@
-1f6a74bfea7e6e974dda9dec7decc162 *DESCRIPTION
+96a2e16a446b389d95bd391a43dadf7f *DESCRIPTION
 6d8599996ef5a04e809f41dc75c896a7 *LICENSE
-77d8ede6b012936b730459be75a823fe *NAMESPACE
-2bc9efeb970b1f9929101350c64496e1 *NEWS.md
+710965493ea5bd8740dc377a24eb26f7 *NAMESPACE
+a3dc2f16ee7a8b462bed5fcd12975d6a *NEWS.md
 efa094da7960e6e6a39b0e24537cb9a0 *R/AdditionalSuppression.R
 36d4b8fbcac9607a9ae31a3131edf344 *R/Candidates.R
 339285f076d75af648887bf4da59bf01 *R/ChainedSuppression.R
 b04554d478d5dd12ee34889a4bf8c06e *R/Extend0fromHierarchies.R
 3a7db2dcfe088d23b2cdc8e189deebf5 *R/FixRiskyIntervals.R
 46efa1781bd809e2a6417506d5756f51 *R/GaussSuppressDec.R
-62cc184229ba030dacc7e06355a0b889 *R/GaussSuppressionFromData.R
+066a23b82a578ea37f11e98ea88726c0 *R/GaussSuppressionFromData.R
 6f3a658c84c9859a0a1d8a411f050375 *R/GaussSuppressionTwoWay.R
 b41fa9fb06df19b909342eb951757127 *R/GetDefault.R
 efe7f1850d92b27a0191ecbebace7ad3 *R/HierarchyContributors.R
@@ -29,7 +29,7 @@ f4e0280c170a06b6ca0fce2d62f2185d *R/Primary.R
 b39e597332fefe76a133327da2364687 *R/PrimaryFromSuppressedData.R
 2bddc7a021fadffd102deb2eab43811d *R/PrimaryRemoveWg.R
 3a67e45ab905bd66f2f9f5928e2ca157 *R/RangeLimits.R
-ea0d4b564ae1daa0dc0b2c686aee1967 *R/Singleton.R
+1cddf7ea0e2d4afba83336366e168434 *R/Singleton.R
 9b5f0e5cdb1ed137662c6e218c91979b *R/SmartOrder.R
 a2768f10bac878605bcfe2a8713767df *R/SuppressDirectDisclosure.R
 9456c264472f4417595666ad25219455 *R/SuppressDominantCells.R
@@ -56,7 +56,7 @@ dca2fceba448d16c807a8540ad746f60 *man/CandidatesDefault.Rd
 270320c4a9f3592ef0a6fded0e6e5a4a *man/FindDominantCells.Rd
 90ce9ad77c8f61526298ee802c0ab2a5 *man/FixRiskyIntervals.Rd
 ee151303c2fa3c60e12b91d074826302 *man/GaussSuppressDec.Rd
-a93bd95b0fb0066b14d3960a627fdabc *man/GaussSuppressionFromData.Rd
+5b2c143efeb43862cdcf248b0dd94176 *man/GaussSuppressionFromData.Rd
 897540f80c07804bdf4807e1cad40142 *man/GaussSuppressionTwoWay.Rd
 a374c3c7a43b7ab0cff3205f95fc335b *man/GetDefault.Rd
 33fb637f32cd2e04b836ee8794e8a768 *man/HierarchyContributors.Rd
@@ -77,7 +77,7 @@ e3c06ee1b6e304b5e4a4c3c4fc76fb0a *man/PrimaryFromSuppressedData.Rd
 8a7c7d3c95996c0449f1e7871d3343b5 *man/RangeLimitsDefault.Rd
 2eb31f14d20758a3db13998bbf5f0795 *man/RangeOutputFunction.Rd
 ce8e9536a248b88fc54bbccb187a5352 *man/SingletonDefault.Rd
-4cc289a24f88095168a1cd5b86c3fd9d *man/SingletonUniqueContributor.Rd
+39735cd8d69e45f6706c9dc177f0a047 *man/SingletonUniqueContributor.Rd
 005fd4ccb894e8cae1cdfc4565be0b4c *man/SuppressDirectDisclosure.Rd
 40af830012419fac198b7e25de4eade2 *man/SuppressDominantCells.Rd
 6aa443a422cb5ece15508997344ec1b1 *man/SuppressFewContributors.Rd
@@ -90,7 +90,7 @@ c5adddabe02ab2b3875f4140e996e7b0 *man/reexports.Rd
 f0d901fd48c05704bd691c4e856c8742 *tests/testthat/test-DominanceRule.R
 dd01daa4281cf22376d541ee38817bdc *tests/testthat/test-FixRiskyIntervals.R
 e266346460ad05be9f7dc9e9fd778a52 *tests/testthat/test-GaussSuppressDec.R
-7859c772bf6106c5cc3e1c00a566c4b4 *tests/testthat/test-GaussSuppressionFromData.R
+a947f8c163663c5ad314793e9d88f7e3 *tests/testthat/test-GaussSuppressionFromData.R
 8fd3354c527eafd3a52a3a93d320e242 *tests/testthat/test-GaussSuppressionTwoWay.R
 637f01de8edfb9d81fb739794f3c85a3 *tests/testthat/test-Wrappers.R
 24efcd88451de061188da82970dc4389 *vignettes/GaussKable.R
