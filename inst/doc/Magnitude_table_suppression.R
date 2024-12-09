@@ -55,7 +55,7 @@ P(caption = '**Table 3**: Output from `SuppressDominantCells` <br> with `n = 1` 
   dimVar= c("sector4", "geo"), 
   n=1, k=80, allDominance = TRUE,
   fun = SuppressDominantCells,
-  print_expr = 'paste0(value, " (",round(100*`primary.1:80`) ,"%) ")')
+  print_expr = 'paste0(value, " (",round(100*`dominant1`) ,"%) ")')
 
 ## -----------------------------------------------------------------------------
 output <- SuppressDominantCells(data=dataset, 

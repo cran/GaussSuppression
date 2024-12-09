@@ -867,27 +867,48 @@ the cell total.</p>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">n =</span> <span class="dv">1</span>, <span class="at">k =</span> <span class="dv">80</span>, <span class="at">allDominance =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*4] Checking ....</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ..............::</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          sector4      geo value primary.1:80 primary suppressed</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          Total    Total 462.3    0.2089552   FALSE      FALSE</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2          Total  Iceland  37.1    0.4528302   FALSE      FALSE</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3          Total Portugal 162.5    0.4670769   FALSE      FALSE</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4          Total    Spain 262.7    0.3677198   FALSE      FALSE</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5    Agriculture    Total 240.2    0.4021649   FALSE      FALSE</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    Agriculture  Iceland   0.0    0.0000000   FALSE      FALSE</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    Agriculture Portugal 100.4    0.7559761   FALSE      FALSE</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    Agriculture    Spain 139.8    0.6909871   FALSE      FALSE</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  Entertainment    Total 131.5    0.5885932   FALSE      FALSE</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Entertainment  Iceland  16.8    1.0000000    TRUE       TRUE</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 Entertainment Portugal   9.4    0.7553191   FALSE       TRUE</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Entertainment    Spain 105.3    0.7350427   FALSE      FALSE</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13  Governmental    Total  32.8    0.6585366   FALSE       TRUE</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14  Governmental  Iceland   0.0    0.0000000   FALSE      FALSE</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15  Governmental Portugal  23.6    0.9152542    TRUE       TRUE</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16  Governmental    Spain   9.2    0.7065217   FALSE       TRUE</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17      Industry    Total  57.8    0.4446367   FALSE       TRUE</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18      Industry  Iceland  20.3    0.4729064   FALSE       TRUE</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19      Industry Portugal  29.1    0.8831615    TRUE       TRUE</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20      Industry    Spain   8.4    1.0000000    TRUE       TRUE</span></span></code></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          sector4      geo value dominant1 max1contributor n_contr n_non0_contr</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          Total    Total 462.3 0.2089552               3      20           20</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2          Total  Iceland  37.1 0.4528302               5       4            4</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3          Total Portugal 162.5 0.4670769               1       8            8</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4          Total    Spain 262.7 0.3677198               3       8            8</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5    Agriculture    Total 240.2 0.4021649               3       4            4</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    Agriculture  Iceland   0.0 0.0000000              NA       0            0</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    Agriculture Portugal 100.4 0.7559761               1       2            2</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    Agriculture    Spain 139.8 0.6909871               3       2            2</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  Entertainment    Total 131.5 0.5885932               8       6            6</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 Entertainment  Iceland  16.8 1.0000000               5       1            1</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 Entertainment Portugal   9.4 0.7553191               6       2            2</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 Entertainment    Spain 105.3 0.7350427               8       3            3</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13  Governmental    Total  32.8 0.6585366              11       4            4</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14  Governmental  Iceland   0.0 0.0000000              NA       0            0</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15  Governmental Portugal  23.6 0.9152542              11       2            2</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16  Governmental    Spain   9.2 0.7065217              13       2            2</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17      Industry    Total  57.8 0.4446367              18       6            6</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18      Industry  Iceland  20.3 0.4729064              15       3            3</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19      Industry Portugal  29.1 0.8831615              18       2            2</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20      Industry    Spain   8.4 1.0000000              20       1            1</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    primary suppressed</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    FALSE      FALSE</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    FALSE      FALSE</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    FALSE      FALSE</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    FALSE      FALSE</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5    FALSE      FALSE</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    FALSE      FALSE</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    FALSE      FALSE</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    FALSE      FALSE</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9    FALSE      FALSE</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10    TRUE       TRUE</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11   FALSE       TRUE</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12   FALSE      FALSE</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13   FALSE       TRUE</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14   FALSE      FALSE</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15    TRUE       TRUE</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16   FALSE       TRUE</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17   FALSE       TRUE</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18   FALSE       TRUE</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 19    TRUE       TRUE</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 20    TRUE       TRUE</span></span></code></pre></div>
 <p>To incorporate the percentage of the two largest contributions in the
 output, the parameter <code>allDominance = TRUE</code> was utilized. A
 formatted version of this output is given in Table 3 below.</p>
