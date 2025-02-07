@@ -1,8 +1,8 @@
 Package: GaussSuppression
 Type: Package
 Title: Tabular Data Suppression using Gaussian Elimination
-Version: 0.9.2
-Date: 2024-12-09
+Version: 0.9.5
+Date: 2025-02-07
 Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"),
                     email = "oyl@ssb.no",
                     comment = c(ORCID = "0000-0002-1380-4396")),
@@ -13,9 +13,8 @@ Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"),
              person("Vidar Norstein", "Klungre", role = "rev",
                     comment = c(ORCID = "0000-0003-1925-5911")),
              person("Statistics Norway", role = "cph"))
-Maintainer: Øyvind Langsrud <oyl@ssb.no>
-Depends: Matrix
-Imports: SSBtools (>= 1.6.0), RegSDC (>= 0.7.0), stats, methods, utils
+Imports: SSBtools (>= 1.7.0), RegSDC (>= 0.7.0), stats, methods, utils,
+        Matrix
 Description: A statistical disclosure control tool to protect tables by suppression 
     using the Gaussian elimination secondary suppression algorithm 
     (Langsrud, 2024) <doi:10.1007/978-3-031-69651-0_6>. A suggestion is 
@@ -28,20 +27,22 @@ Description: A statistical disclosure control tool to protect tables by suppress
     replaced by synthetic decimal numbers as described in 
     Langsrud (2019) <doi:10.1007/s11222-018-9848-9>.
 License: MIT + file LICENSE
-URL: https://github.com/statisticsnorway/ssb-gausssuppression
+URL: https://github.com/statisticsnorway/ssb-gausssuppression,
+        https://statisticsnorway.github.io/ssb-gausssuppression/
 BugReports: https://github.com/statisticsnorway/ssb-gausssuppression/issues
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Suggests: formattable, kableExtra, knitr, rmarkdown, testthat (>=
         3.0.0), lpSolve, Rsymphony, Rglpk, slam, highs, data.table
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2024-12-09 09:27:28 UTC; oyl
+Packaged: 2025-02-07 12:22:03 UTC; oyl
 Author: Øyvind Langsrud [aut, cre] (<https://orcid.org/0000-0002-1380-4396>),
   Daniel Lupp [aut] (<https://orcid.org/0000-0003-3575-1691>),
   Hege Bøvelstad [ctb] (<https://orcid.org/0000-0002-4522-8987>),
   Vidar Norstein Klungre [rev] (<https://orcid.org/0000-0003-1925-5911>),
   Statistics Norway [cph]
+Maintainer: Øyvind Langsrud <oyl@ssb.no>
 Repository: CRAN
-Date/Publication: 2024-12-09 09:50:01 UTC
+Date/Publication: 2025-02-07 12:50:02 UTC

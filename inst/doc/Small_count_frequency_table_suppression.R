@@ -56,10 +56,10 @@ dimlists <- SSBtools::FindDimLists(dataset_a[c("age", "geo", "eu")])
 dimlists
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  SuppressSmallCounts(data = dataset_a[c("age", "geo", "freq")],
-#                      hierarchies = dimlists,
-#                      freqVar = "freq",
-#                      maxN = 2)
+# SuppressSmallCounts(data = dataset_a[c("age", "geo", "freq")],
+#                     hierarchies = dimlists,
+#                     freqVar = "freq",
+#                     maxN = 2)
 
 ## -----------------------------------------------------------------------------
 SuppressSmallCounts(data = dataset_a, 
@@ -131,13 +131,13 @@ P(data = dataset_b[-2,  ], # caption = "Table 6",
                     structuralEmpty = TRUE)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  SuppressSmallCounts(data = dataset_b[-2,  ],
-#                      formula = ~age * (geo + eu),
-#                      freqVar = "freq",
-#                      maxN = 2,
-#                      extend0 = FALSE,
-#                      structuralEmpty = TRUE,
-#                      removeEmpty = FALSE)
+# SuppressSmallCounts(data = dataset_b[-2,  ],
+#                     formula = ~age * (geo + eu),
+#                     freqVar = "freq",
+#                     maxN = 2,
+#                     extend0 = FALSE,
+#                     structuralEmpty = TRUE,
+#                     removeEmpty = FALSE)
 
 ## -----------------------------------------------------------------------------
 SuppressSmallCounts(data = dataset_b, 
