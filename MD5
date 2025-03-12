@@ -1,7 +1,7 @@
-88ff25c007869a4f480d5d8e0733b316 *DESCRIPTION
+2e71669b23c78221bb59f900b66c2751 *DESCRIPTION
 6d8599996ef5a04e809f41dc75c896a7 *LICENSE
 a51372e583601fe55f552f4cee48ca10 *NAMESPACE
-3e5ae8c6db14f4c584cef025b8defa56 *NEWS.md
+c06213fd66fe1b989eb20e409b712a5e *NEWS.md
 efa094da7960e6e6a39b0e24537cb9a0 *R/AdditionalSuppression.R
 68a2efe8124a392a6b86c6c01c3c6d38 *R/Candidates.R
 339285f076d75af648887bf4da59bf01 *R/ChainedSuppression.R
@@ -35,7 +35,7 @@ a2768f10bac878605bcfe2a8713767df *R/SuppressDirectDisclosure.R
 2b888781b4da5dca4d50bd775be9b1b9 *R/SuppressFewContributors.R
 15cb257796891e3eac15bdce9614813c *R/SuppressKDisclosure.R
 d01d00c32008ada7cbf0c84a301d2031 *R/SuppressSmallCounts.R
-c33657c675cc8950d81e4dedd5433919 *R/SuppressionFromDecimals.R
+e9141aed7a07bac9f4a1e93ce348ba40 *R/SuppressionFromDecimals.R
 0c83a2ce9f218bfe233e711a9f479665 *R/X_from_mc.R
 73f3d6144af53a7804e524533c170d7c *R/reexport.R
 9e1d39bea259bf64f9eaeca7d91abcd2 *build/vignette.rds
@@ -84,12 +84,13 @@ e56e5fe224cd56d38d6ae3cfd74e0b1a *man/SuppressFewContributors.Rd
 25817dac334e48846d894d73b4f0935a *man/SuppressSmallCounts.Rd
 65f0f4d568a4b41f80d93ecee1524fcf *man/SuppressionFromDecimals.Rd
 e3eb44c4dc7b68da70ae5bb5d16325f5 *man/X_from_mc.Rd
+f3b51e27e6aa1ab9c3d3935b4c09bca8 *man/figures/logo.png
 c6ba84805674ebf0f8ef36664cf885a7 *man/reexports.Rd
 05b132103c92d1e4238ffa17c0a78190 *tests/testthat.R
 cfd79ca1642bee6eaba04b961207d97d *tests/testthat/test-DominanceRule.R
 dd01daa4281cf22376d541ee38817bdc *tests/testthat/test-FixRiskyIntervals.R
 e266346460ad05be9f7dc9e9fd778a52 *tests/testthat/test-GaussSuppressDec.R
-a947f8c163663c5ad314793e9d88f7e3 *tests/testthat/test-GaussSuppressionFromData.R
+59512644cb3c196ca84b3066ad01f4f6 *tests/testthat/test-GaussSuppressionFromData.R
 8fd3354c527eafd3a52a3a93d320e242 *tests/testthat/test-GaussSuppressionTwoWay.R
 b8b49a3bf73b5f86e5db56dae4ac4030 *tests/testthat/test-Wrappers.R
 24efcd88451de061188da82970dc4389 *vignettes/GaussKable.R
