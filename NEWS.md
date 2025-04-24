@@ -1,10 +1,19 @@
+## GaussSuppression	1.0.0
+* The package has been stable and in practical use for a long time. The release of version 1.0.0 is therefore appropriate.
+* Interval examples are now included in the vignettes.
+* Progress information during extra suppression to meet interval width requirements now counts down instead of up, making it easier to interpret.
+* Updated to support the latest 
+  [highs](https://CRAN.R-project.org/package=highs) 
+  version (1.9.0-1) for interval computation.
+* The warning about interval calculations being experimental has been removed.
 
-## GaussSuppression	x.x.x
+
+## GaussSuppression	0.9.6
 * Misleading warnings in `SuppressionFromDecimals()` are now prevented.  
   - The update to version 0.9.5 could cause the warning  
     *"Mismatch between aggregated frequencies and decimals aggregated to whole numbers"*  
     to appear incorrectly with small datasets. This has now been fixed.
-* Preparation for a slight improvement to a singleton method in the next version of SSBtools (> 1.7.0).  
+* Preparation for a slight improvement to a singleton method in the next version of SSBtools (1.7.5).  
   - The method described as `elimination` (4th character) in `?SSBtools::NumSingleton` will be slightly improved.  
   - Tests in the GaussSuppression package have been updated to accommodate this change.
 * A hexagon sticker logo is now visible on the 

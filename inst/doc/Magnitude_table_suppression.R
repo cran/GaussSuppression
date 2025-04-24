@@ -160,3 +160,29 @@ P(caption = '**Table 9**: Output from `SuppressDominantCells`  with `n = 1:2` an
   fun = SuppressDominantCells,
   print_expr = 'value')
 
+## ----echo=FALSE, message=FALSE, warning=FALSE---------------------------------
+if (!requireNamespace("Rglpk", quietly = TRUE)) {
+  cat("Note: The final part of this vignette requires the suggested package 'Rglpk', which is not installed. That part has been skipped.\n")
+  knitr::knit_exit()
+}
+
+## -----------------------------------------------------------------------------
+output <- SuppressDominantCells(data = dataset, 
+                                numVar = "value", 
+                                dimVar = c("geo", "sector2", "sector4"), 
+                                pPercent = 30, 
+                                rangePercent = 70, rangeMin = 80, 
+                                lpPackage = "Rglpk")
+output[c(12, 14, 16, 17, 20, 25), ] # some output lines 
+
+## ----echo=FALSE---------------------------------------------------------------
+P(caption = '**Table 10**: Output from `SuppressDominantCells`  with `pPercent = 30`, `rangePercent = 70`, `rangeMin = 80`, `lpPackage = "Rglpk"`',
+  data=dataset, 
+  numVar = "value", 
+  dimVar = c("geo", "sector2", "sector4"), 
+  pPercent = 30, 
+  rangePercent = 70, rangeMin = 80, 
+  lpPackage = "Rglpk",
+  fun = SuppressDominantCells, 
+  print_expr = 'ifelse(is.na(lo), value, paste0(value, " [", lo, ", ", up, "]"))')
+

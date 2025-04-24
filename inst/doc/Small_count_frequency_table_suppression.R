@@ -166,3 +166,27 @@ P(data = dataset, # caption = "Table 8",
                     maxN = 1,
                     protectZeros = FALSE)
 
+## ----echo=FALSE, message=FALSE, warning=FALSE---------------------------------
+if (!requireNamespace("Rglpk", quietly = TRUE)) {
+  cat("Note: The final part of this vignette requires the suggested package 'Rglpk', which is not installed. That part has been skipped.\n")
+  knitr::knit_exit()
+}
+
+## -----------------------------------------------------------------------------
+output <- SuppressSmallCounts(data = dataset, 
+                              formula = ~age*geo,  
+                              freqVar = "freq", 
+                              maxN = 3, 
+                              rangeMin = 5,
+                              lpPackage = "Rglpk")
+tail(output) 
+
+## ----echo=FALSE---------------------------------------------------------------
+P(data=dataset, 
+  formula = ~age*geo,  
+  freqVar = "freq", 
+  maxN = 3, 
+  rangeMin = 5,
+  lpPackage = "Rglpk",
+  print_expr = 'ifelse(is.na(lo), freq, paste0(freq, " [", lo, ", ", up, "]"))')
+
