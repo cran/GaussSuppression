@@ -1,3 +1,17 @@
+## GaussSuppression	1.1.0
+* Significant update: new functionality via **`SuppressLinkedTables()`** and **`linkedGauss`** 
+  for consistent suppression of linked tables  
+  - Introduces alternatives to global protection, potentially reducing computational burden.  
+  - Available via the new function `SuppressLinkedTables()`, or alternatively by using the 
+    new parameter `linkedGauss` in `GaussSuppressionFromData()` and its wrappers.  
+  - Also note the related new parameters to `GaussSuppressionFromData()`: 
+    `recordAware` and `linkedTables`.
+* Improved support for named `maxN` with variable-specific values.  
+  - Enables setups with multiple primary functions using different `maxN` values.  
+  - See the documentation for `GaussSuppressionFromData()`, `PrimaryDefault()`, and `NContributorsRule()`.  
+  - Thanks to Jonas Lindblad for [issue #120](https://github.com/statisticsnorway/ssb-gausssuppression/issues/120).
+
+
 ## GaussSuppression	1.0.0
 * The package has been stable and in practical use for a long time. The release of version 1.0.0 is therefore appropriate.
 * Interval examples are now included in the vignettes.

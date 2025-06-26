@@ -41,7 +41,10 @@ GaussSuppressionFromData(
   aggregatePackage = "base",
   aggregateNA = TRUE,
   aggregateBaseOrder = FALSE,
-  rowGroupsPackage = aggregatePackage
+  rowGroupsPackage = aggregatePackage,
+  linkedGauss = NULL,
+  recordAware = TRUE,
+  linkedTables = NULL
 )
 }
 \arguments{
@@ -66,8 +69,12 @@ Thus, the variables can also be coded by \code{"rowFactor"} or \code{""}, which 
 
 \item{formula}{A model formula}
 
-\item{maxN}{Suppression parameter. Cells with frequency \verb{<= maxN} are set as primary suppressed.
-Using the default \code{primary} function, \code{maxN} is by default set to \code{3}. See details.}
+\item{maxN}{Suppression parameter forwarded to the supplied functions.
+With the default \code{primary} function, \code{\link[=PrimaryDefault]{PrimaryDefault()}}, cells with frequency \verb{<= maxN} are marked as primary suppressed,
+and the default value of \code{maxN} is \code{3}. See details below.
+The parameter is also used by \code{\link[=NContributorsRule]{NContributorsRule()}}.
+For advanced use cases, including setups with multiple primary functions, \code{maxN} can be specified
+as a named list or vector. See each primary function’s documentation for details.}
 
 \item{protectZeros}{Suppression parameter.
 When \code{TRUE}, cells with zero frequency or value are set as primary suppressed.
@@ -191,6 +198,25 @@ The parameter will have impact when, e.g \code{output = "inner"}.}
 \item{rowGroupsPackage}{Parameter \code{pkg} to \code{\link[SSBtools]{RowGroups}}.
 The parameter is input to \code{\link[SSBtools]{Formula2ModelMatrix}}
 via \code{\link[SSBtools]{ModelMatrix}}.}
+
+\item{linkedGauss}{Controls linked table suppression. Accepted values are described in the
+documentation for \code{\link[=SuppressLinkedTables]{SuppressLinkedTables()}}.
+See also the note and the corresponding examples, which
+demonstrate usage with alternative function interfaces.
+In addition, \code{linkedGauss = "global"} is allowed and corresponds to standard execution
+(i.e., when \code{linkedGauss} is not specified).
+When \code{linkedGauss} is used, the \code{formula} parameter should be provided as a list of formulas.
+Alternatively, \code{formula} may have an attribute \code{"table_formulas"} containing such a list.
+See also the \code{linkedTables} parameter below.}
+
+\item{recordAware}{Parameter associated with \code{linkedGauss}. See \code{\link[=SuppressLinkedTables]{SuppressLinkedTables()}}.}
+
+\item{linkedTables}{A list specifying how the tables referenced in the \code{formula}
+parameter should be combined for use in the linked-tables algorithm.
+Each element in the list contains one or more names of the tables in \code{formula}.
+The corresponding tables will be combined and treated as a single table by the algorithm.
+For example: \code{linkedTables = list(c("table_1", "table_3"), "table_2")}.
+If \code{NULL} (default), each table in \code{formula} is used individually.}
 }
 \value{
 Aggregated data with suppression information
