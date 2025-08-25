@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content />
+
+
+<title>Linked table suppression</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<script>$(document).ready(function(){
+    if (typeof $('[data-toggle="tooltip"]').tooltip === 'function') {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+    if ($('[data-toggle="popover"]').popover === 'function') {
+        $('[data-toggle="popover"]').popover();
+    }
+});
+</script>
+<style type="text/css">
+.lightable-minimal {
+border-collapse: separate;
+border-spacing: 16px 1px;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-minimal td {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal th {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal thead tr:last-child th {
+border-bottom: 2px solid #00000050;
+empty-cells: hide;
+}
+.lightable-minimal tbody tr:first-child td {
+padding-top: 0.5em;
+}
+.lightable-minimal.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-minimal.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic {
+border-top: 0.16em solid #111111;
+border-bottom: 0.16em solid #111111;
+width: 100%;
+margin-bottom: 10px;
+margin: 10px 5px;
+}
+.lightable-classic tfoot tr td {
+border: 0;
+}
+.lightable-classic tfoot tr:first-child td {
+border-top: 0.14em solid #111111;
+}
+.lightable-classic caption {
+color: #222222;
+}
+.lightable-classic td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic thead tr:last-child th {
+border-bottom: 0.10em solid #111111;
+}
+.lightable-classic.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic-2 {
+border-top: 3px double #111111;
+border-bottom: 3px double #111111;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-classic-2 tfoot tr td {
+border: 0;
+}
+.lightable-classic-2 tfoot tr:first-child td {
+border-top: 3px double #111111;
+}
+.lightable-classic-2 caption {
+color: #222222;
+}
+.lightable-classic-2 td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic-2 th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic-2 tbody tr:last-child td {
+border-bottom: 3px double #111111;
+}
+.lightable-classic-2 thead tr:last-child th {
+border-bottom: 1px solid #111111;
+}
+.lightable-classic-2.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic-2.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #EEE;
+border-collapse: collapse;
+margin-bottom: 10px;
+}
+.lightable-material tfoot tr td {
+border: 0;
+}
+.lightable-material tfoot tr:first-child td {
+border-top: 1px solid #EEE;
+}
+.lightable-material th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+}
+.lightable-material td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+border-top: 1px solid #eeeeee;
+}
+.lightable-material.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #ddd;
+}
+.lightable-material-dark {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #FFFFFF12;
+border-collapse: collapse;
+margin-bottom: 10px;
+background-color: #363640;
+}
+.lightable-material-dark tfoot tr td {
+border: 0;
+}
+.lightable-material-dark tfoot tr:first-child td {
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF60;
+}
+.lightable-material-dark td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF;
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark.lightable-hover tbody tr:hover {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody tr:nth-child(even) {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material-dark.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #FFFFFF12;
+}
+.lightable-paper {
+width: 100%;
+margin-bottom: 10px;
+color: #444;
+}
+.lightable-paper tfoot tr td {
+border: 0;
+}
+.lightable-paper tfoot tr:first-child td {
+border-top: 1px solid #00000020;
+}
+.lightable-paper thead tr:last-child th {
+color: #666;
+vertical-align: bottom;
+border-bottom: 1px solid #00000020;
+line-height: 1.15em;
+padding: 10px 5px;
+}
+.lightable-paper td {
+vertical-align: middle;
+border-bottom: 1px solid #00000010;
+line-height: 1.15em;
+padding: 7px 5px;
+}
+.lightable-paper.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-paper.lightable-striped tbody tr:nth-child(even) {
+background-color: #00000008;
+}
+.lightable-paper.lightable-striped tbody td {
+border: 0;
+}
+</style>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Linked table suppression</h1>
+<h4 class="author"></h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>By using the formula parameter, it is already possible to protect
+linked tables with the functions described in the other vignettes. The
+result is the strictest form of protection, which we call global
+protection.</p>
+<p>This vignette illustrates alternative methods for linked tables. A
+common method for such protection is <em>back-tracking</em> where one
+iterates until a consistent solution is found. In the functions
+described below, such a method can be achieved by specifying
+<code>linkedGauss = &quot;back-tracking&quot;</code>. With the GaussSuppression
+package, one can find such a consistent solution using an improved
+approach, avoiding the need for iteration.</p>
+<p>Below we start with some examples of protected tables with
+alternative methods. Then we show in more detail different function
+calls that achieve this. We also discuss the parameters
+<code>recordAware</code> and <code>collapseAware</code>.</p>
+<p>Finally, an example with interval protection is also shown.</p>
+</div>
+<div id="input-data-and-examples" class="section level2">
+<h2>Input data and examples</h2>
+<p>We use a modified version of the <em>example 1</em> dataset used
+elsewhere.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(GaussSuppression)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">SSBtoolsData</span>(<span class="st">&quot;example1&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>), ]</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>dataset<span class="sc">$</span>freq <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">print</span>(dataset)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&gt;      age      geo    eu year freq</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt; 1  young    Spain    EU 2014    6</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt; 2  young  Iceland nonEU 2014    8</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; 4    old    Spain    EU 2014    9</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt; 6    old Portugal    EU 2014    1</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; 8  young  Iceland nonEU 2015    2</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt; 10   old    Spain    EU 2015    4</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; 12   old Portugal    EU 2015    3</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt; 13 young    Spain    EU 2016    7</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; 14 young  Iceland nonEU 2016    2</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt; 15 young Portugal    EU 2016    2</span></span></code></pre></div>
+<p>In the examples, we work with two linked tables:<br />
+- a three-way table where <code>age</code>, <code>eu</code>, and
+<code>year</code> are crossed, and<br />
+- a two-way table where <code>geo</code> and <code>year</code> are
+crossed.</p>
+<p>In this example, small counts (1s and 2s) are protected. All zeros
+are treated as known structural zeros and are omitted from both the
+input and the output.</p>
+<p>As in the other vignettes, primary suppressed cells are underlined
+and labeled in red, while the secondary suppressed cells are labeled in
+purple.</p>
+<p>We first illustrate local protection, where the tables are protected
+separately without any coordination between them.</p>
+<br />
+
+<p style="text-align: center;">
+<font size="4"> <strong>Table 1</strong>: Linked suppressed tables by
+<br> <strong><code>linkedGauss = &quot;local&quot;</code></strong> </font>
+</p>
+<div style="display: flex;  align-items: flex-start;">
+<table class="table table-bordered" style="font-size: 14px; ">
+<thead>
+<tr>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+age
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+year
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+nonEU
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+EU
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">8</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">6</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">14</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">9</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">15</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">27</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">10</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">10</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">7</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">17</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">17</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">8</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">16</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">24</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">9</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">9</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">32</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">44</span>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-bordered" style="font-size: 14px; ">
+<thead>
+<tr>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+year
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Iceland
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Portugal
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Spain
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">8</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">1</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">15</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">24</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">3</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">4</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">9</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">6</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">26</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">44</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br />
+</p>
+<p>Clearly, this is not a satisfactory solution. The totals for 2015 and
+2016 are suppressed in one table, but not in the other. Furthermore,
+there is also an inconsistency for <em>Iceland-2014</em>, which is the
+same as <em>nonEU-2014</em>.</p>
+<p>We continue with consistent protection.</p>
+<br />
+
+<p style="text-align: center;">
+<font size="4"> <strong>Table 2</strong>: Linked suppressed tables by
+<br> <strong><code>linkedGauss = &quot;consistent&quot;</code></strong> </font>
+</p>
+<div style="display: flex;  align-items: flex-start;">
+<table class="table table-bordered" style="font-size: 14px; ">
+<thead>
+<tr>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+age
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+year
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+nonEU
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+EU
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">8</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">6</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">14</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">9</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">15</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">27</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">10</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">10</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">7</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">17</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">17</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">8</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">16</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">24</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">9</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">9</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">32</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">44</span>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-bordered" style="font-size: 14px; ">
+<thead>
+<tr>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+year
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Iceland
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Portugal
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Spain
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">8</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">1</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">15</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">24</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">3</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">4</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">9</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">6</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">26</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">44</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br />
+</p>
+<p>The inconsistency problems are now avoided.</p>
+<p>However, a remaining problem with this solution is that
+<em>Spain-2015</em> can be derived from <em>EU-2015</em> and
+<em>Portugal-2015</em>.</p>
+<p>Finally, we illustrate an improved form of consistent protection,
+denoted as <em>super-consistent</em>, which also avoids this
+problem.</p>
+<br />
+
+<p style="text-align: center;">
+<font size="4"> <strong>Table 3</strong>: Linked suppressed tables by
+<br>
+<strong><code>linkedGauss = &quot;super-consistent&quot;</code></strong></font>
+</p>
+<div style="display: flex;  align-items: flex-start;">
+<table class="table table-bordered" style="font-size: 14px; ">
+<thead>
+<tr>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+age
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+year
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+nonEU
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+EU
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">8</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">6</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">14</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">9</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">15</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">27</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">10</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">10</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">7</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">17</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">17</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">8</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">16</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">24</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">9</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">9</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">32</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">44</span>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-bordered" style="font-size: 14px; ">
+<thead>
+<tr>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+year
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Iceland
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Portugal
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Spain
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">8</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">1</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">15</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">24</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">3</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">4</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">9</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">6</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">26</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">44</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br />
+</p>
+<p>The suppressed cells in each table correspond to related equations
+that cannot be solved. The <em>super-consistent</em> method makes use of
+the fact that common cells across tables must have the same value. Thus,
+the equations from the different tables can be combined when searching
+for solutions. The <em>super-consistent</em> method ensures that
+suppressed cells cannot be uniquely determined from the combined system
+of equations. However, the coordination is not as strict as in the
+global method, where the system of equations becomes even larger. In
+this particular case, the <em>super-consistent</em> solution turns out
+to be the same as the global one.</p>
+</div>
+<div id="function-calls-and-output" class="section level2">
+<h2>Function calls and output</h2>
+<p>To achieve both treating zeros as known structural zeros and omitting
+them from the output, we use the parameter settings
+<code>extend0 = FALSE</code> and <code>removeEmpty = TRUE</code>.</p>
+<p>In <code>SuppressLinkedTables()</code>, the argument
+<code>withinArg</code> specifies which parameters may differ between the
+linked tables. In our examples, we choose this to be either
+<code>dimVar</code>, <code>hierarchies</code>, or
+<code>formula</code>.</p>
+<p>The output from <code>SuppressLinkedTables()</code> is a list, with
+one element for each of the linked tables.</p>
+</div>
+<div id="suppresslinkedtables-with-dimvar" class="section level2">
+<h2><code>SuppressLinkedTables()</code> with <code>dimVar</code></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">SuppressLinkedTables</span>(<span class="at">data =</span> dataset,</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>              <span class="at">fun =</span> SuppressSmallCounts, </span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>              <span class="at">withinArg =</span> <span class="fu">list</span>(<span class="at">table_1 =</span> <span class="fu">list</span>(<span class="at">dimVar =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;year&quot;</span>)), </span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                               <span class="at">table_2 =</span> <span class="fu">list</span>(<span class="at">dimVar =</span> <span class="fu">c</span>(<span class="st">&quot;geo&quot;</span>, <span class="st">&quot;year&quot;</span>))),</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>              <span class="at">freqVar =</span> <span class="st">&quot;freq&quot;</span>, </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>              <span class="at">maxN =</span> <span class="dv">2</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>              <span class="at">extend0 =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>              <span class="at">removeEmpty =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>              <span class="at">linkedGauss =</span> <span class="st">&quot;super-consistent&quot;</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; ====== Linked GaussSuppression by &quot;super-consistent&quot; algorithm:</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_anySum: .....................................</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_1&quot;</span>]])</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt;      age    eu  year freq primary suppressed</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; 1  Total Total Total   44   FALSE      FALSE</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; 2  Total Total  2014   24   FALSE      FALSE</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 3  Total Total  2015    9   FALSE       TRUE</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; 4  Total Total  2016   11   FALSE       TRUE</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; 5  Total    EU Total   32   FALSE      FALSE</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; 6  Total    EU  2014   16   FALSE      FALSE</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; 7  Total    EU  2015    7   FALSE      FALSE</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; 8  Total    EU  2016    9   FALSE      FALSE</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; 9  Total nonEU Total   12   FALSE      FALSE</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; 10 Total nonEU  2014    8   FALSE      FALSE</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; 11 Total nonEU  2015    2    TRUE       TRUE</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; 12 Total nonEU  2016    2    TRUE       TRUE</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; 13   old Total Total   17   FALSE      FALSE</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt; 14   old Total  2014   10   FALSE      FALSE</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; 15   old Total  2015    7   FALSE      FALSE</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; 16   old    EU Total   17   FALSE      FALSE</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; 17   old    EU  2014   10   FALSE      FALSE</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt; 18   old    EU  2015    7   FALSE      FALSE</span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co">#&gt; 19 young Total Total   27   FALSE      FALSE</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">#&gt; 20 young Total  2014   14   FALSE      FALSE</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">#&gt; 21 young Total  2015    2    TRUE       TRUE</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co">#&gt; 22 young Total  2016   11   FALSE       TRUE</span></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="co">#&gt; 23 young    EU Total   15   FALSE      FALSE</span></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co">#&gt; 24 young    EU  2014    6   FALSE      FALSE</span></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co">#&gt; 25 young    EU  2016    9   FALSE      FALSE</span></span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">#&gt; 26 young nonEU Total   12   FALSE      FALSE</span></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co">#&gt; 27 young nonEU  2014    8   FALSE      FALSE</span></span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="co">#&gt; 28 young nonEU  2015    2    TRUE       TRUE</span></span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="co">#&gt; 29 young nonEU  2016    2    TRUE       TRUE</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_2&quot;</span>]])</span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co">#&gt;         geo  year freq primary suppressed</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="co">#&gt; 1     Total Total   44   FALSE      FALSE</span></span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">#&gt; 2     Total  2014   24   FALSE      FALSE</span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt; 3     Total  2015    9   FALSE       TRUE</span></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">#&gt; 4     Total  2016   11   FALSE       TRUE</span></span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">#&gt; 5   Iceland Total   12   FALSE      FALSE</span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; 6   Iceland  2014    8   FALSE      FALSE</span></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; 7   Iceland  2015    2    TRUE       TRUE</span></span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">#&gt; 8   Iceland  2016    2    TRUE       TRUE</span></span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt; 9  Portugal Total    6   FALSE      FALSE</span></span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">#&gt; 10 Portugal  2014    1    TRUE       TRUE</span></span>
+<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="co">#&gt; 11 Portugal  2015    3   FALSE      FALSE</span></span>
+<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a><span class="co">#&gt; 12 Portugal  2016    2    TRUE       TRUE</span></span>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a><span class="co">#&gt; 13    Spain Total   26   FALSE      FALSE</span></span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt; 14    Spain  2014   15   FALSE       TRUE</span></span>
+<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co">#&gt; 15    Spain  2015    4   FALSE      FALSE</span></span>
+<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="co">#&gt; 16    Spain  2016    7   FALSE       TRUE</span></span></code></pre></div>
+</div>
+<div id="suppresslinkedtables-with-hierarchies" class="section level2">
+<h2><code>SuppressLinkedTables()</code> with
+<code>hierarchies</code></h2>
+<p>First, we need hierarchies for the input. Here, these are generated
+separately with <code>SSBtools::FindDimLists()</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>h_age  <span class="ot">&lt;-</span> SSBtools<span class="sc">::</span><span class="fu">FindDimLists</span>(dataset[<span class="st">&quot;age&quot;</span>])[[<span class="dv">1</span>]]</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>h_geo  <span class="ot">&lt;-</span> SSBtools<span class="sc">::</span><span class="fu">FindDimLists</span>(dataset[<span class="st">&quot;geo&quot;</span>])[[<span class="dv">1</span>]]</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>h_eu   <span class="ot">&lt;-</span> SSBtools<span class="sc">::</span><span class="fu">FindDimLists</span>(dataset[<span class="st">&quot;eu&quot;</span>])[[<span class="dv">1</span>]]</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>h_year <span class="ot">&lt;-</span> SSBtools<span class="sc">::</span><span class="fu">FindDimLists</span>(dataset[<span class="st">&quot;year&quot;</span>])[[<span class="dv">1</span>]]</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  </span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="fu">print</span>(h_age)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;   levels codes</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; 1      @ Total</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; 2     @@   old</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; 3     @@ young</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="fu">print</span>(h_geo)</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt;   levels    codes</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; 1      @    Total</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; 2     @@  Iceland</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; 3     @@ Portugal</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; 4     @@    Spain</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="fu">print</span>(h_eu)</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt;   levels codes</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; 1      @ Total</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt; 2     @@    EU</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; 3     @@ nonEU</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="fu">print</span>(h_year)</span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt;   levels codes</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; 1      @ Total</span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; 2     @@  2014</span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt; 3     @@  2015</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt; 4     @@  2016</span></span></code></pre></div>
+<p>The output is identical to using <code>dimVar</code>, so we only show
+the code. Note that the only difference is the <code>withinArg</code>
+argument.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">SuppressLinkedTables</span>(<span class="at">data =</span> dataset,</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>              <span class="at">fun =</span> SuppressSmallCounts, </span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>              <span class="at">withinArg =</span> </span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>                <span class="fu">list</span>(<span class="at">table_1 =</span> <span class="fu">list</span>(<span class="at">hierarchies =</span> <span class="fu">list</span>(<span class="at">age =</span> h_age, <span class="at">eu =</span> h_eu, <span class="at">year =</span> h_year)), </span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>                     <span class="at">table_2 =</span> <span class="fu">list</span>(<span class="at">hierarchies =</span> <span class="fu">list</span>(<span class="at">geo =</span> h_geo, <span class="at">year =</span> h_year))),</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>              <span class="at">freqVar =</span> <span class="st">&quot;freq&quot;</span>, </span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>              <span class="at">maxN =</span> <span class="dv">2</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>              <span class="at">extend0 =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>              <span class="at">removeEmpty =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>              <span class="at">linkedGauss =</span> <span class="st">&quot;super-consistent&quot;</span>)</span></code></pre></div>
+</div>
+<div id="suppresslinkedtables-with-formula" class="section level2">
+<h2><code>SuppressLinkedTables()</code> with <code>formula</code></h2>
+<p>When using <code>formula</code>, the output is similar to that
+obtained with <code>dimVar</code> or <code>hierarchies</code>. The only
+difference in the output is the ordering of rows, so we only show the
+code.</p>
+<p>Again, the only difference in the code is the <code>withinArg</code>
+argument. However, note that we have omitted
+<code>removeEmpty = TRUE</code> here, since this is the default when a
+formula is used as input.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">SuppressLinkedTables</span>(<span class="at">data =</span> dataset,</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>              <span class="at">fun =</span> SuppressSmallCounts, </span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>              <span class="at">withinArg =</span> <span class="fu">list</span>(<span class="at">table_1 =</span> <span class="fu">list</span>(<span class="at">formula =</span> <span class="sc">~</span>age<span class="sc">*</span>eu<span class="sc">*</span>year), </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>                               <span class="at">table_2 =</span> <span class="fu">list</span>(<span class="at">formula =</span> <span class="sc">~</span>geo<span class="sc">*</span>year)),</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>              <span class="at">freqVar =</span> <span class="st">&quot;freq&quot;</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>              <span class="at">maxN =</span> <span class="dv">2</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>              <span class="at">extend0 =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>              <span class="at">linkedGauss =</span> <span class="st">&quot;super-consistent&quot;</span>)</span></code></pre></div>
+</div>
+<div id="suppresssmallcounts-with-formula-and-linkedgauss" class="section level2">
+<h2><code>SuppressSmallCounts()</code> with <code>formula</code> and
+<code>linkedGauss</code></h2>
+<p>Since only the <code>formula</code> parameter varies between the
+linked tables, one option is to run <code>SuppressSmallCounts()</code>
+directly with <code>formula</code> as a list and the
+<code>linkedGauss</code> parameter specified. Here we show 10 output
+rows.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">SuppressSmallCounts</span>(<span class="at">data =</span> dataset,</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>              <span class="at">formula =</span> <span class="fu">list</span>(<span class="at">table_1 =</span> <span class="sc">~</span>age<span class="sc">*</span>eu<span class="sc">*</span>year, <span class="at">table_2 =</span> <span class="sc">~</span>geo<span class="sc">*</span>year),   </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>              <span class="at">freqVar =</span> <span class="st">&quot;freq&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>              <span class="at">maxN =</span> <span class="dv">2</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>              <span class="at">extend0 =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>              <span class="at">linkedGauss =</span> <span class="st">&quot;super-consistent&quot;</span>) </span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; ====== Linked GaussSuppression by &quot;super-consistent&quot; algorithm:</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_anySum: ....................................</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="fu">print</span>(output[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">12</span>, <span class="dv">19</span>, <span class="dv">23</span>, <span class="dv">25</span><span class="sc">:</span><span class="dv">28</span>), ])</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;      age  year      geo freq primary suppressed</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; 1  Total Total    Total   44   FALSE      FALSE</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; 6  Total  2014    Total   24   FALSE      FALSE</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; 7  Total  2015    Total    9   FALSE       TRUE</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; 12   old Total       EU   17   FALSE      FALSE</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt; 19 young  2016    Total   11   FALSE       TRUE</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt; 23 Total  2014    nonEU    8   FALSE      FALSE</span></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt; 25 Total  2016    nonEU    2    TRUE       TRUE</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt; 26 Total  2014  Iceland    8   FALSE      FALSE</span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; 27 Total  2014 Portugal    1    TRUE       TRUE</span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt; 28 Total  2014    Spain   15   FALSE       TRUE</span></span></code></pre></div>
+</div>
+<div id="tables_by_formulas-with-formula-and-linkedgauss" class="section level2">
+<h2><code>tables_by_formulas()</code> with <code>formula</code> and
+<code>linkedGauss</code></h2>
+<p>Similar output can be obtained by <code>tables_by_formulas()</code>.
+In this case, the region variable is specified manually, and table
+membership variables are included in the output. Again, 10 output rows
+are shown.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>output <span class="ot">&lt;-</span>  <span class="fu">tables_by_formulas</span>(<span class="at">data =</span> dataset,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>              <span class="at">table_fun =</span> SuppressSmallCounts,                </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>              <span class="at">table_formulas =</span> <span class="fu">list</span>(<span class="at">table_1 =</span> <span class="sc">~</span>age<span class="sc">*</span>eu<span class="sc">*</span>year, <span class="at">table_2 =</span> <span class="sc">~</span>geo<span class="sc">*</span>year),   </span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>              <span class="at">freqVar =</span> <span class="st">&quot;freq&quot;</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>              <span class="at">maxN =</span> <span class="dv">2</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>              <span class="at">extend0 =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>              <span class="at">linkedGauss =</span> <span class="st">&quot;super-consistent&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>              <span class="at">substitute_vars =</span> <span class="fu">list</span>(<span class="at">region =</span> <span class="fu">c</span>(<span class="st">&quot;geo&quot;</span>, <span class="st">&quot;eu&quot;</span>))) </span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; ====== Linked GaussSuppression by &quot;super-consistent&quot; algorithm:</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_anySum: ....................................</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>              </span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="fu">print</span>(output[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">12</span>, <span class="dv">19</span>, <span class="dv">23</span>, <span class="dv">25</span><span class="sc">:</span><span class="dv">28</span>), ])</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt;      age  year   region freq primary suppressed table_1 table_2</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; 1  Total Total    Total   44   FALSE      FALSE    TRUE    TRUE</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; 6  Total  2014    Total   24   FALSE      FALSE    TRUE    TRUE</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; 7  Total  2015    Total    9   FALSE       TRUE    TRUE    TRUE</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; 12   old Total       EU   17   FALSE      FALSE    TRUE   FALSE</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; 19 young  2016    Total   11   FALSE       TRUE    TRUE   FALSE</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; 23 Total  2014    nonEU    8   FALSE      FALSE    TRUE   FALSE</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; 25 Total  2016    nonEU    2    TRUE       TRUE    TRUE   FALSE</span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt; 26 Total  2014  Iceland    8   FALSE      FALSE   FALSE    TRUE</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt; 27 Total  2014 Portugal    1    TRUE       TRUE   FALSE    TRUE</span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt; 28 Total  2014    Spain   15   FALSE       TRUE   FALSE    TRUE</span></span></code></pre></div>
+</div>
+<div id="the-parameters-recordaware-and-collapseaware" class="section level2">
+<h2>The parameters <code>recordAware</code> and
+<code>collapseAware</code></h2>
+<p>An important issue is which cells are considered common cells. In the
+functions, the parameter <code>recordAware</code> is set to
+<code>TRUE</code> by default. In this case, common cells are determined
+based on whether they aggregate the same underlying records. This is
+similar to the use of cell keys, a well-known concept from the cell-key
+method of statistical disclosure control.</p>
+<p>When <code>recordAware = FALSE</code>, common cells are instead
+identified by matching variable combinations. This does not always work
+well. For example, here <code>recordAware = TRUE</code> is necessary to
+capture that <em>Iceland-2014</em> and <em>nonEU-2014</em> are the
+same.</p>
+<p>A related parameter is <code>collapseAware</code>, but it is not
+available when using <code>SuppressLinkedTables()</code>. When it is
+used, even more cells are treated as common cells. In particular, the
+suppression algorithm then automatically accounts for cells in one table
+that are sums of cells in another table. In our example, this means that
+the combination <code>&quot;consistent&quot;</code> and
+<code>collapseAware = TRUE</code> gives the same result as
+<code>&quot;super-consistent&quot;</code>.</p>
+<p>For more details on parameters and options, see the documentation for
+<code>SuppressLinkedTables()</code>.</p>
+</div>
+<div id="interval-protection" class="section level2">
+<h2>Interval protection</h2>
+<p>Intervals for the primary suppressed cells are computed whenever the
+<code>lpPackage</code> parameter is specified. When
+<code>linkedGauss = &quot;super-consistent&quot;</code>, intervals can be
+calculated using this method as well.</p>
+<p>There are several possibilities. See the documentation for the
+parameter <code>linkedIntervals</code> in the help page for
+<code>SuppressLinkedTables()</code>.</p>
+<p>If <code>rangePercent</code> and/or <code>rangeMin</code> are
+provided, further suppression is performed to ensure that the interval
+width requirements are met. See the help page for
+<code>GaussSuppressionFromData()</code>, under the description of the
+<code>lpPackage</code> parameter, for more details.</p>
+<p>In the example below, the required interval width is 4. To achieve
+this, two additional cells are suppressed: <em>Portugal-2015</em> and
+<em>Spain-2015</em>. Without this additional suppression, some intervals
+are as narrow as 3 (see variables <code>lo_1</code> and
+<code>up_1</code> below).</p>
+<br />
+
+<p style="text-align: center;">
+<font size="4"> <strong>Table 4</strong>: Linked suppressed tables with
+intervals by <br>
+<strong><code>linkedGauss = &quot;super-consistent&quot;, rangeMin = 4</code></strong></font>
+</p>
+<div style="display: flex;  align-items: flex-start;">
+<table class="table table-bordered" style="font-size: 14px; ">
+<thead>
+<tr>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+age
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+year
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+nonEU
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+EU
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">8</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">6</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">14</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2
+[0, 4]</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2
+[0, 4]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2
+[0, 4]</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">9</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+young
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">15</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">27</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">10</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">10</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">7</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+old
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style="     "></span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">17</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">17</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">8</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">16</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">24</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2
+[0, 4]</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">9</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;   text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2
+[0, 4]</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">9</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">32</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">44</span>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-bordered" style="font-size: 14px; ">
+<thead>
+<tr>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+year
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Iceland
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Portugal
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Spain
+</th>
+<th style="text-align:right;font-weight: bold;background-color: rgba(144, 204, 147, 255) !important;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2014
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     ">8</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">1
+[0, 6]</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">15</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">24</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2015
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2
+[0, 4]</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">3</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">4</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">9</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+2016
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2
+[0, 4]</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="    text-decoration: underline; color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">2
+[0, 6]</span>
+</td>
+<td style="text-align:right;border-right:1px solid LightGray;">
+<span style="     color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">7</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    color: white !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: rgba(143, 0, 239, 255) !important;">11</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;background-color: rgba(227, 241, 230, 255) !important;border-left:1px solid LightGray;border-right:1px solid LightGray;">
+Total
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">12</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">6</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">26</span>
+</td>
+<td style="text-align:right;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;font-weight: bold;background-color: rgba(220, 241, 252, 255) !important;border-right:1px solid LightGray;">
+<span style=" font-weight: bold;    ">44</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br />
+</p>
+<p>This functionality can be used with all the function calls above.
+Below is shown <code>SuppressLinkedTables()</code> with
+<code>dimVar</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">SuppressLinkedTables</span>(<span class="at">data =</span> dataset,</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>                               <span class="at">fun =</span> SuppressSmallCounts, </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                               <span class="at">withinArg =</span> <span class="fu">list</span>(<span class="at">table_1 =</span> <span class="fu">list</span>(<span class="at">dimVar =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;eu&quot;</span>, <span class="st">&quot;year&quot;</span>)), </span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>                                                <span class="at">table_2 =</span> <span class="fu">list</span>(<span class="at">dimVar =</span> <span class="fu">c</span>(<span class="st">&quot;geo&quot;</span>, <span class="st">&quot;year&quot;</span>))),</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>                               <span class="at">freqVar =</span> <span class="st">&quot;freq&quot;</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>                               <span class="at">maxN =</span> <span class="dv">2</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>                               <span class="at">extend0 =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>                               <span class="at">removeEmpty =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>                               <span class="at">linkedGauss =</span> <span class="st">&quot;super-consistent&quot;</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>                               <span class="at">lpPackage =</span> <span class="st">&quot;highs&quot;</span>, </span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>                               <span class="at">rangeMin =</span> <span class="dv">4</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; ====== Linked GaussSuppression by &quot;super-consistent&quot; algorithm:</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_anySum: .....................................</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; (20*18-DDrow-&gt;16*18-&gt;-0exact-&gt;9*5-DDcol2-&gt;9*3-GaussI-&gt;9*3)</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; Using highs for intervals...</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; ----</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt; (20*18-DDrow-&gt;16*18-&gt;)</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt; ..................</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; 10+1-6+2-5+3+</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt;   2: 1 new, (4.000) 1-</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt;   1: 2 new, (3.000) 1+</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_none: .............................</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; (20*16-DDrow-&gt;16*16-&gt;-0exact-&gt;11*5-DDcol2-&gt;11*3-GaussI-&gt;11*3)</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; Using highs for intervals...</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; ----</span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_1&quot;</span>]])</span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt;      age    eu  year freq rlim_freq lo_1 up_1 lo up suppressed_integer primary</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; 1  Total Total Total   44        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; 2  Total Total  2014   24        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; 3  Total Total  2015    9        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; 4  Total Total  2016   11        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; 5  Total    EU Total   32        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; 6  Total    EU  2014   16        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt; 7  Total    EU  2015    7        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; 8  Total    EU  2016    9        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt; 9  Total nonEU Total   12        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="co">#&gt; 10 Total nonEU  2014    8        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a><span class="co">#&gt; 11 Total nonEU  2015    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a><span class="co">#&gt; 12 Total nonEU  2016    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a><span class="co">#&gt; 13   old Total Total   17        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="co">#&gt; 14   old Total  2014   10        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a><span class="co">#&gt; 15   old Total  2015    7        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a><span class="co">#&gt; 16   old    EU Total   17        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="co">#&gt; 17   old    EU  2014   10        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a><span class="co">#&gt; 18   old    EU  2015    7        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a><span class="co">#&gt; 19 young Total Total   27        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a><span class="co">#&gt; 20 young Total  2014   14        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a><span class="co">#&gt; 21 young Total  2015    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a><span class="co">#&gt; 22 young Total  2016   11        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a><span class="co">#&gt; 23 young    EU Total   15        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a><span class="co">#&gt; 24 young    EU  2014    6        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a><span class="co">#&gt; 25 young    EU  2016    9        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a><span class="co">#&gt; 26 young nonEU Total   12        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-59"><a href="#cb8-59" tabindex="-1"></a><span class="co">#&gt; 27 young nonEU  2014    8        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-60"><a href="#cb8-60" tabindex="-1"></a><span class="co">#&gt; 28 young nonEU  2015    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-61"><a href="#cb8-61" tabindex="-1"></a><span class="co">#&gt; 29 young nonEU  2016    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-62"><a href="#cb8-62" tabindex="-1"></a><span class="co">#&gt;    suppressed</span></span>
+<span id="cb8-63"><a href="#cb8-63" tabindex="-1"></a><span class="co">#&gt; 1       FALSE</span></span>
+<span id="cb8-64"><a href="#cb8-64" tabindex="-1"></a><span class="co">#&gt; 2       FALSE</span></span>
+<span id="cb8-65"><a href="#cb8-65" tabindex="-1"></a><span class="co">#&gt; 3        TRUE</span></span>
+<span id="cb8-66"><a href="#cb8-66" tabindex="-1"></a><span class="co">#&gt; 4        TRUE</span></span>
+<span id="cb8-67"><a href="#cb8-67" tabindex="-1"></a><span class="co">#&gt; 5       FALSE</span></span>
+<span id="cb8-68"><a href="#cb8-68" tabindex="-1"></a><span class="co">#&gt; 6       FALSE</span></span>
+<span id="cb8-69"><a href="#cb8-69" tabindex="-1"></a><span class="co">#&gt; 7       FALSE</span></span>
+<span id="cb8-70"><a href="#cb8-70" tabindex="-1"></a><span class="co">#&gt; 8       FALSE</span></span>
+<span id="cb8-71"><a href="#cb8-71" tabindex="-1"></a><span class="co">#&gt; 9       FALSE</span></span>
+<span id="cb8-72"><a href="#cb8-72" tabindex="-1"></a><span class="co">#&gt; 10      FALSE</span></span>
+<span id="cb8-73"><a href="#cb8-73" tabindex="-1"></a><span class="co">#&gt; 11       TRUE</span></span>
+<span id="cb8-74"><a href="#cb8-74" tabindex="-1"></a><span class="co">#&gt; 12       TRUE</span></span>
+<span id="cb8-75"><a href="#cb8-75" tabindex="-1"></a><span class="co">#&gt; 13      FALSE</span></span>
+<span id="cb8-76"><a href="#cb8-76" tabindex="-1"></a><span class="co">#&gt; 14      FALSE</span></span>
+<span id="cb8-77"><a href="#cb8-77" tabindex="-1"></a><span class="co">#&gt; 15      FALSE</span></span>
+<span id="cb8-78"><a href="#cb8-78" tabindex="-1"></a><span class="co">#&gt; 16      FALSE</span></span>
+<span id="cb8-79"><a href="#cb8-79" tabindex="-1"></a><span class="co">#&gt; 17      FALSE</span></span>
+<span id="cb8-80"><a href="#cb8-80" tabindex="-1"></a><span class="co">#&gt; 18      FALSE</span></span>
+<span id="cb8-81"><a href="#cb8-81" tabindex="-1"></a><span class="co">#&gt; 19      FALSE</span></span>
+<span id="cb8-82"><a href="#cb8-82" tabindex="-1"></a><span class="co">#&gt; 20      FALSE</span></span>
+<span id="cb8-83"><a href="#cb8-83" tabindex="-1"></a><span class="co">#&gt; 21       TRUE</span></span>
+<span id="cb8-84"><a href="#cb8-84" tabindex="-1"></a><span class="co">#&gt; 22       TRUE</span></span>
+<span id="cb8-85"><a href="#cb8-85" tabindex="-1"></a><span class="co">#&gt; 23      FALSE</span></span>
+<span id="cb8-86"><a href="#cb8-86" tabindex="-1"></a><span class="co">#&gt; 24      FALSE</span></span>
+<span id="cb8-87"><a href="#cb8-87" tabindex="-1"></a><span class="co">#&gt; 25      FALSE</span></span>
+<span id="cb8-88"><a href="#cb8-88" tabindex="-1"></a><span class="co">#&gt; 26      FALSE</span></span>
+<span id="cb8-89"><a href="#cb8-89" tabindex="-1"></a><span class="co">#&gt; 27      FALSE</span></span>
+<span id="cb8-90"><a href="#cb8-90" tabindex="-1"></a><span class="co">#&gt; 28       TRUE</span></span>
+<span id="cb8-91"><a href="#cb8-91" tabindex="-1"></a><span class="co">#&gt; 29       TRUE</span></span>
+<span id="cb8-92"><a href="#cb8-92" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_2&quot;</span>]])</span>
+<span id="cb8-93"><a href="#cb8-93" tabindex="-1"></a><span class="co">#&gt;         geo  year freq rlim_freq lo_1 up_1 lo up suppressed_integer primary</span></span>
+<span id="cb8-94"><a href="#cb8-94" tabindex="-1"></a><span class="co">#&gt; 1     Total Total   44        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-95"><a href="#cb8-95" tabindex="-1"></a><span class="co">#&gt; 2     Total  2014   24        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-96"><a href="#cb8-96" tabindex="-1"></a><span class="co">#&gt; 3     Total  2015    9        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-97"><a href="#cb8-97" tabindex="-1"></a><span class="co">#&gt; 4     Total  2016   11        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-98"><a href="#cb8-98" tabindex="-1"></a><span class="co">#&gt; 5   Iceland Total   12        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-99"><a href="#cb8-99" tabindex="-1"></a><span class="co">#&gt; 6   Iceland  2014    8        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-100"><a href="#cb8-100" tabindex="-1"></a><span class="co">#&gt; 7   Iceland  2015    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-101"><a href="#cb8-101" tabindex="-1"></a><span class="co">#&gt; 8   Iceland  2016    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-102"><a href="#cb8-102" tabindex="-1"></a><span class="co">#&gt; 9  Portugal Total    6        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-103"><a href="#cb8-103" tabindex="-1"></a><span class="co">#&gt; 10 Portugal  2014    1         4    0    3  0  6                  1    TRUE</span></span>
+<span id="cb8-104"><a href="#cb8-104" tabindex="-1"></a><span class="co">#&gt; 11 Portugal  2015    3        NA   NA   NA NA NA                  3   FALSE</span></span>
+<span id="cb8-105"><a href="#cb8-105" tabindex="-1"></a><span class="co">#&gt; 12 Portugal  2016    2         4    0    3  0  6                  1    TRUE</span></span>
+<span id="cb8-106"><a href="#cb8-106" tabindex="-1"></a><span class="co">#&gt; 13    Spain Total   26        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-107"><a href="#cb8-107" tabindex="-1"></a><span class="co">#&gt; 14    Spain  2014   15        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-108"><a href="#cb8-108" tabindex="-1"></a><span class="co">#&gt; 15    Spain  2015    4        NA   NA   NA NA NA                  3   FALSE</span></span>
+<span id="cb8-109"><a href="#cb8-109" tabindex="-1"></a><span class="co">#&gt; 16    Spain  2016    7        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-110"><a href="#cb8-110" tabindex="-1"></a><span class="co">#&gt;    suppressed</span></span>
+<span id="cb8-111"><a href="#cb8-111" tabindex="-1"></a><span class="co">#&gt; 1       FALSE</span></span>
+<span id="cb8-112"><a href="#cb8-112" tabindex="-1"></a><span class="co">#&gt; 2       FALSE</span></span>
+<span id="cb8-113"><a href="#cb8-113" tabindex="-1"></a><span class="co">#&gt; 3        TRUE</span></span>
+<span id="cb8-114"><a href="#cb8-114" tabindex="-1"></a><span class="co">#&gt; 4        TRUE</span></span>
+<span id="cb8-115"><a href="#cb8-115" tabindex="-1"></a><span class="co">#&gt; 5       FALSE</span></span>
+<span id="cb8-116"><a href="#cb8-116" tabindex="-1"></a><span class="co">#&gt; 6       FALSE</span></span>
+<span id="cb8-117"><a href="#cb8-117" tabindex="-1"></a><span class="co">#&gt; 7        TRUE</span></span>
+<span id="cb8-118"><a href="#cb8-118" tabindex="-1"></a><span class="co">#&gt; 8        TRUE</span></span>
+<span id="cb8-119"><a href="#cb8-119" tabindex="-1"></a><span class="co">#&gt; 9       FALSE</span></span>
+<span id="cb8-120"><a href="#cb8-120" tabindex="-1"></a><span class="co">#&gt; 10       TRUE</span></span>
+<span id="cb8-121"><a href="#cb8-121" tabindex="-1"></a><span class="co">#&gt; 11       TRUE</span></span>
+<span id="cb8-122"><a href="#cb8-122" tabindex="-1"></a><span class="co">#&gt; 12       TRUE</span></span>
+<span id="cb8-123"><a href="#cb8-123" tabindex="-1"></a><span class="co">#&gt; 13      FALSE</span></span>
+<span id="cb8-124"><a href="#cb8-124" tabindex="-1"></a><span class="co">#&gt; 14       TRUE</span></span>
+<span id="cb8-125"><a href="#cb8-125" tabindex="-1"></a><span class="co">#&gt; 15       TRUE</span></span>
+<span id="cb8-126"><a href="#cb8-126" tabindex="-1"></a><span class="co">#&gt; 16       TRUE</span></span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

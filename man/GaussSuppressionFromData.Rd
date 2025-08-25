@@ -43,7 +43,10 @@ GaussSuppressionFromData(
   aggregateBaseOrder = FALSE,
   rowGroupsPackage = aggregatePackage,
   linkedGauss = NULL,
+  linkedIntervals = ifelse(linkedGauss == "local-bdiag", "local-bdiag",
+    "super-consistent"),
   recordAware = TRUE,
+  collapseAware = FALSE,
   linkedTables = NULL
 )
 }
@@ -187,7 +190,14 @@ Intervals, \verb{[lo_1, up_1]}, are intervals calculated prior to additional sup
 Parameter \code{pkg} to \code{\link[SSBtools]{aggregate_by_pkg}}.}
 
 \item{aggregateNA}{Whether to include NAs in the grouping variables while preAggregate/extraAggregate.
-Parameter \code{include_na} to \code{\link[SSBtools]{aggregate_by_pkg}}.}
+Parameter \code{include_na} to \code{\link[SSBtools]{aggregate_by_pkg}}.
+Note that NAs will not be present in the output table's dimensions regardless of the value of \code{aggregateNA}.
+When using the formula interface, this is controlled by the \code{NAomit} parameter (default \code{TRUE}),
+which is passed to the function \code{\link[SSBtools:FormulaSums]{SSBtools::Formula2ModelMatrix()}}.
+It is through this use of the formula interface that NAs in the input data make sense.
+Note that under normal circumstances, grouping variables should not use NA to represent a category.
+As such, if NAs are present in the grouping variables, using the \code{dimVar} or \code{hierarchies} interfaces
+will result in errors.}
 
 \item{aggregateBaseOrder}{Parameter \code{base_order} to \code{\link[SSBtools]{aggregate_by_pkg}},
 used when preAggregate/extraAggregate.
@@ -209,7 +219,30 @@ When \code{linkedGauss} is used, the \code{formula} parameter should be provided
 Alternatively, \code{formula} may have an attribute \code{"table_formulas"} containing such a list.
 See also the \code{linkedTables} parameter below.}
 
+\item{linkedIntervals}{Determines how interval calculations,
+triggered by the \code{lpPackage} parameter, are performed when \code{linkedGauss} is not \code{"global"}.
+When \code{linkedGauss = "global"}, interval settings in \code{linkedIntervals} are ignored.
+For allowed values and detailed behaviour, see the documentation of \code{\link[=SuppressLinkedTables]{SuppressLinkedTables()}}.
+\itemize{
+\item Note: With \code{linkedIntervals = "local-bdiag"}, common cells may have different table-specific intervals.
+Since the output shows one interval per cell, it is constructed using the maximum lower bound and
+minimum upper bound across the tables.
+}}
+
 \item{recordAware}{Parameter associated with \code{linkedGauss}. See \code{\link[=SuppressLinkedTables]{SuppressLinkedTables()}}.}
+
+\item{collapseAware}{Parameter associated with \code{linkedGauss}.
+In the linked‑tables algorithm, the model matrix is first \emph{collapsed} by
+removing duplicate rows.
+When \code{collapseAware = TRUE}, every cell that remains numerically derivable
+after a pre‑aggregation corresponding to this row reduction will be treated
+as a common cell. This
+maximizes coordination across tables, given the duplicate‑row removal,
+while adding limited additional computational overhead. In particular,
+the suppression algorithm automatically accounts for cells in one table
+that are sums of cells in another table.
+Note that any cell that \code{recordAware = TRUE} would introduce is already
+included automatically when \code{collapseAware = TRUE}.}
 
 \item{linkedTables}{A list specifying how the tables referenced in the \code{formula}
 parameter should be combined for use in the linked-tables algorithm.
