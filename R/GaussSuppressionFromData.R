@@ -98,6 +98,11 @@
 #' @param crossTable See above.  
 #' @param preAggregate When `TRUE`, the data will be aggregated within the function to an appropriate level. 
 #'        This is defined by the dimensional variables according to `dimVar`, `hierarchies` or `formula` and in addition `charVar`.
+#'        When `FALSE`, no aggregation is performed. 
+#'        When `NA`, the function will automatically decide whether to aggregate: 
+#'        aggregation is applied unless `freqVar` is present and the data contain no duplicated rows with respect to 
+#'        the dimensional variables and `charVar`.        
+#'        Exception: if a non-`NULL` `x` (the model matrix) is supplied, `NA` is treated as `FALSE`.
 #' @param extraAggregate When `TRUE`, the data will be aggregated by the dimensional variables according to `dimVar`, `hierarchies` or `formula`.
 #'                       The aggregated data and the corresponding x-matrix will only be used as input to the singleton 
 #'                       function and \code{\link[SSBtools]{GaussSuppression}}. 
@@ -131,23 +136,43 @@
 #'               In addition, `TRUE` and `FALSE` are allowed as alternatives to  `"always"` and `"no"`.
 #'               see details. 
 #'               
-#' @param  lpPackage 
-#'  * **`lpPackage`:**
-#'                   When non-NULL, intervals by \code{\link{ComputeIntervals}} 
-#'                   will be included in the output.
-#'                   See its documentation for valid parameter values for 'lpPackage'.
-#'                   If, additionally, at least one of the two \code{\link{RangeLimitsDefault}} parameters below is specified, 
-#'                   further suppression will be performed to satisfy the interval width requirements.
-#'        Then, the values in the output variable `suppressed_integer` means: 
-#'                   no suppression (0), 
-#'                   primary suppression (1), 
-#'                   secondary suppression (2), 
-#'                   additional suppression applied by an interval algorithm limited to linearly independent cells (3), 
-#'                   and further suppression according to the final gauss algorithm (4).
-#'        Intervals, `[lo_1, up_1]`, are intervals calculated prior to additional suppression.         
-#'    * **`rangePercent`:** Required interval width expressed as a percentage
-#'    * **`rangeMin`:** Minimum required width of the interval
-#'                                 
+#' @param lpPackage
+#'  * When non-NULL, intervals computed by [ComputeIntervals()] will
+#'    be included in the output. Valid values are the names of supported R
+#'    packages for linear programming backends: `"highs"`, `"Rsymphony"`,
+#'    `"Rglpk"`, or `"lpSolve"`. 
+#'
+#'  * If interval requirements are specified, additional suppression will be
+#'    performed to satisfy those requirements. Interval requirements can be
+#'    set either through arguments of [IntervalLimits()] or by enabling
+#'    `protectionIntervals = TRUE` in the primary suppression functions.
+#'    See [IntervalLimits()] for a full description of the parameters
+#'    (`protectionPercent`, `protectionLimit`, `loProtectionPercent`,
+#'    `loProtectionLimit`, `rangePercent`, `rangeMin`) and how interval
+#'    requirements are calculated.
+#'
+#'    - In the output variable `suppressed_integer`, suppression status is
+#'      coded as:
+#'      0 = no suppression,  
+#'      1 = primary suppression,  
+#'      2 = secondary suppression,  
+#'      3 = additional suppression applied by an interval algorithm limited
+#'          to linearly independent cells,  
+#'      4 = further suppression according to the final gauss algorithm.  
+#'
+#'    - Intervals `[lo_1, up_1]` are calculated prior to additional suppression.
+#'    
+#'    - To disable additional suppression, set `intervalSuppression = FALSE`.  
+#'    
+#'                   Please note that additional suppression based on parameters other than
+#'                   rangePercent and rangeMin is currently considered experimental.
+#'                   In particular, the names of the newer parameters may still change.                   
+#'    
+#' @param intervalSuppression
+#'   Logical. If `FALSE`, additional suppression to satisfy interval
+#'   requirements is disabled (default is `TRUE`). See description of
+#'   `lpPackage` above.
+#'                                                            
 #' @param aggregatePackage Package used to preAggregate/extraAggregate. 
 #'                         Parameter `pkg` to \code{\link[SSBtools]{aggregate_by_pkg}}.
 #' @param aggregateNA Whether to include NAs in the grouping variables while preAggregate/extraAggregate. 
@@ -203,16 +228,35 @@
 #'   The corresponding tables will be combined and treated as a single table by the algorithm.
 #'   For example: `linkedTables = list(c("table_1", "table_3"), "table_2")`.
 #'   If `NULL` (default), each table in `formula` is used individually.
-#'                                                            
+#' 
+#' @param action_unused_dots Character string controlling how unused arguments
+#'   in `...` are handled. Internally uses [ellipsis::check_dots_used()] with a
+#'   custom action. One of "warn", "abort", "inform", or "none". The value "none"
+#'   disables the check entirely. The default is taken from
+#'   `getOption("GaussSuppression.action_unused_dots")`, falling back to "inform"
+#'   if the option is not set. Users can change the default globally with e.g.
+#'   `options(GaussSuppression.action_unused_dots = "abort")`.
+#'
+#' @param allowed_unused_dots Character vector of argument names ignored by the
+#'   unused-argument check. May be useful when this function is wrapped by
+#'   another function, or in other cases where a correctly spelled argument is
+#'   nevertheless not registered as used. The default is taken from
+#'   `getOption("GaussSuppression.allowed_unused_dots")`, falling back to
+#'   `character(0)` if the option is not set. Users can change the default
+#'   globally with e.g.
+#'   `options(GaussSuppression.allowed_unused_dots = c("plotColor", "lineType"))`.
+#'   
 #' @param ... Further arguments to be passed to the supplied functions and to \code{\link[SSBtools]{ModelMatrix}} (such as `inputInOutput` and `removeEmpty`).
 #'
 #' @return Aggregated data with suppression information
 #' @export
-#' @importFrom SSBtools GaussSuppression ModelMatrix Extend0 NamesFromModelMatrixInput SeqInc aggregate_by_pkg Extend0fromModelMatrixInput IsExtend0 CheckInput combine_formulas
+#' @importFrom SSBtools GaussSuppression ModelMatrix Extend0 NamesFromModelMatrixInput SeqInc aggregate_by_pkg Extend0fromModelMatrixInput IsExtend0 CheckInput combine_formulas any_duplicated_rows get_colnames
 #' @importFrom Matrix crossprod as.matrix
 #' @importFrom stats aggregate as.formula delete.response terms
 #' @importFrom utils flush.console
 #' @importFrom methods hasArg
+#' @importFrom rlang warn
+#' @importFrom ellipsis check_dots_used
 #' 
 #' @author Øyvind Langsrud and Daniel Lupp
 #'
@@ -288,6 +332,7 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
                            forcedInOutput = "ifNonNULL",
                            unsafeInOutput = "ifForcedInOutput",
                            lpPackage = NULL, 
+                           intervalSuppression = TRUE,
                            aggregatePackage = "base",
                            aggregateNA = TRUE,
                            aggregateBaseOrder = FALSE,
@@ -296,7 +341,9 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
                            linkedIntervals = ifelse(linkedGauss == "local-bdiag", "local-bdiag", "super-consistent"),
                            recordAware = TRUE,
                            collapseAware = FALSE,
-                           linkedTables = NULL
+                           linkedTables = NULL,
+                           action_unused_dots  = getOption("GaussSuppression.action_unused_dots", "inform"),
+                           allowed_unused_dots = getOption("GaussSuppression.allowed_unused_dots", character(0))
                            ){ 
   if (!is.null(spec)) {
     if (is.call(spec)) {
@@ -324,6 +371,7 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
     stop("spec must be a properly named list")
   }
   
+  CheckInput(action_unused_dots, type = "character", alt = c("warn", "abort", "inform", "none"), okNULL = FALSE)
   
   CheckInput(linkedGauss, type = "character", alt = c("global", "local", "consistent", "back-tracking", "local-bdiag", "super-consistent"), okNULL = TRUE)
   
@@ -363,33 +411,24 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
     OutputFunction <- output
     output <- "publish"
   } else {
-    if (!is.null(lpPackage)) {
-      if (!requireNamespace(lpPackage, quietly = TRUE)) {
-        stop(paste0("Package '", lpPackage, "' is not available."))
-      }
-      if (hasArg(rangePercent) | hasArg(rangeMin)) {
-        # if (!(hasArg(rangePercent) & hasArg(rangeMin))) {
-        #   stop("Both rangePercent and rangeMin must be specified, not just one of them.")
-        # }
-        OutputFunction <- OutputFixRiskyIntervals
-      } else {
-        OutputFunction <- OutputIntervals
-      }
-      if( !(identical(linkedGauss, "global") | is.null(linkedGauss))) {    ### INTERVALS ANOTHER WAY 
-        OutputFunction <- NULL
-      } 
-    } else {
-      OutputFunction <- NULL
+    OutputFunction <- NULL
+  }  
+    
+  if (!is.null(lpPackage)){
+    if (!requireNamespace(lpPackage, quietly = TRUE)) {
+      stop(paste0("Package '", lpPackage, "' is not available."))
     }
+    GaussSuppression <- GaussSuppression_with_intervals
   }
   
   
   if(!(output %in% c("publish", "inner", "publish_inner", "publish_inner_x", "publish_x", "inner_x", "input2functions", 
                      "inputGaussSuppression", "inputGaussSuppression_x", "outputGaussSuppression", "outputGaussSuppression_x",
-                     "primary", "secondary", "all", "pre_gauss_env")))
+                     "primary", "secondary", "all", "pre_gauss_env"))) {
     stop('Allowed values of parameter output are "publish", "inner", "publish_inner", "publish_inner_x", "publish_x", "inner_x", "input2functions",
          "inputGaussSuppression", "inputGaussSuppression_x", "outputGaussSuppression", "outputGaussSuppression_x",
                      "primary", "secondary", "all", "pre_gauss_env")')
+  }
   
   
   innerReturn <- output %in% c("inner", "publish_inner", "publish_inner_x", "inner_x", "all")
@@ -448,16 +487,31 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
     stop("dimVar, hierarchies or formula must be specified")
   }
   
+  dimVar <- get_colnames(data, dimVar)
+  freqVar <- get_colnames(data, freqVar)
+  numVar <- get_colnames(data, numVar)
+  weightVar <- get_colnames(data, weightVar)
+  charVar <- get_colnames(data, charVar)
+  
+  
+  dVar <- NamesFromModelMatrixInput(hierarchies = hierarchies, formula = formula, dimVar = dimVar)
+  
+  if (is.na(preAggregate)) {
+    if (!is.null(x)) {
+      preAggregate <- FALSE
+    } else {
+      preAggregate <- TRUE
+      if (length(freqVar)) {
+        if (any_duplicated_rows(data, cols = unique(c(dVar, charVar))) == 0) {
+          preAggregate <- FALSE
+        } 
+      }
+    }
+  }
+  
   if (!(preAggregate & aggregatePackage == "data.table")) {
     data <- as.data.frame(data)
   }
-  
-  dimVar <- names(data[1, dimVar, drop = FALSE])
-  freqVar <- names(data[1, freqVar, drop = FALSE])
-  numVar <- names(data[1, numVar, drop = FALSE])
-  weightVar <- names(data[1, weightVar, drop = FALSE])
-  charVar <- names(data[1, charVar, drop = FALSE])
-  
   
   if (preAggregate | extraAggregate){
     if(nUniqueVar %in% names(data)){
@@ -472,18 +526,6 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
       cat("[preAggregate ", dim(data)[1], "*", dim(data)[2], "->", sep = "")
       flush.console()
     }
-    
-    dVar <- NamesFromModelMatrixInput(hierarchies = hierarchies, formula = formula, dimVar = dimVar)
-    
-    if (!length(dVar)) {
-      freqPlusVarName <- c(freqVar, numVar, weightVar, charVar)
-      if (!length(freqPlusVarName)) {
-        dVar <- names(data)
-      } else {
-        dVar <- names(data[1, !(names(data) %in% freqPlusVarName), drop = FALSE])
-      }
-    }
-    dVar <- unique(dVar)
     
     if (!length(dimVar)){
       dimVar <- dVar
@@ -758,7 +800,27 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
   }
   
   z <- z_interval(..., freq = freq, freqVar = freqVar, num = num)
-  rangeLimits <- RangeLimitsDefault(..., primary = primary, num = num, freq = freq, freqVar = freqVar)
+  
+  intervalLimits <- IntervalLimits(..., primary = primary, num = num, freq = freq, freqVar = freqVar)
+  if (!is.null(intervalLimits)) {
+    num <- cbind(num, intervalLimits)
+  }
+  
+  lim_names <- grep("^(rlim_|lomax_|upmin_)", colnames(num))
+  if(length(lim_names)) {
+    if (anyDuplicated(colnames(num)[lim_names])) {
+      # Collapse duplicate rlim_/lomax_/upmin_ columns by rowwise max/min
+      num <- dedupe_range_limits(num)
+      lim_names <- grep("^(rlim_|lomax_|upmin_)", colnames(num))      
+    }
+    if (intervalSuppression) {
+      intervalLimits <-  as.data.frame(num[ , lim_names, drop = FALSE]) 
+    } else {
+      intervalLimits <- NULL
+    }
+  } else {
+    intervalLimits <- NULL
+  }
   
   if( output %in% c("outputGaussSuppression", "outputGaussSuppression_x", "secondary")){
     rm(crossTable)
@@ -814,6 +876,34 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
     }
   }
   
+  if (is.character(output)) {
+    if (output %in% c("inputGaussSuppression", "inputGaussSuppression_x")) {
+      action_unused_dots <- "none"
+    }
+  }
+  
+  if(action_unused_dots != "none") {
+    # extra_allowed_unused since these arguments may not be registered as used 
+    # in special cases, e.g. when no primary suppression occurs
+    extra_allowed_unused <- c(
+      "printXdim", "tolGauss", "whenEmptySuppressed", # SSBtools::GaussSuppression
+      "whenPrimaryForced", "iWait", "iFunction",      # SSBtools::GaussSuppression
+      "avoidHierarchical",    # SSBtools::Extend0fromModelMatrixInput and  SSBtools::FormulaSums
+      "hierarchical_extend0"  # SSBtools::Extend0fromModelMatrixInput
+    )
+    allowed_unused_dots <- unique(c(allowed_unused_dots, extra_allowed_unused)) 
+    if (hasArg("avoidHierarchical") & hasArg("avoid_hierarchical")) {   
+      # i.e. called from SSBtools::tables_by_formulas()
+      allowed_unused_dots <- unique(c(allowed_unused_dots, "avoid_hierarchical"))
+    }
+    rlang_warn_extra <- generate_rlang_warn_extra(action_unused_dots, 
+                                                  note = "See arguments `action_unused_dots` and `allowed_unused_dots` in `?GaussSuppressionFromData`.")
+    ellipsis::check_dots_used(action = rlang_warn_extra)
+    touch_dots <- generate_touch_dots(allowed_unused_dots)
+    touch_dots(...)
+  }
+  
+  
   if (output == "pre_gauss_env") {
     r_rnd <-as.matrix(crossprod(x, as.matrix(data[r_rnd])))
     rm(data)    # data needed when output %in% c("all", "publish_inner_x", "publish_inner")
@@ -829,7 +919,7 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
                                   unsafeAsNegative = TRUE, table_memberships = table_memberships, cell_grouping = cell_grouping, iterBackTracking = iterBackTracking,
                                   super_consistent = super_consistent,
                                   z = z,
-                                  rangeLimits = rangeLimits,
+                                  intervalLimits = intervalLimits,
                                   lpPackage = lpPackage,
                                   linkedIntervals = linkedIntervals,
                                   ...)
@@ -838,7 +928,7 @@ GaussSuppressionFromData = function(data, dimVar = NULL, freqVar=NULL,
                                   unsafeAsNegative = TRUE, table_memberships = table_memberships, cell_grouping = cell_grouping, iterBackTracking = iterBackTracking, 
                                   super_consistent = super_consistent,
                                   z = z,
-                                  rangeLimits = rangeLimits,
+                                  intervalLimits = intervalLimits,
                                   lpPackage = lpPackage,
                                   linkedIntervals = linkedIntervals,
                                   ...)
@@ -1065,8 +1155,14 @@ collapse_aware_table_memberships <- function(table_memberships, x, aggregatePack
 
 # Function to find vector with z-values for interval calculation
 z_interval <- function(..., freq, freqVar, num, dominanceVar = NULL, intervalVar = NULL) {
+  if (is.null(intervalVar)) {
+    intervalVar <- extract_intervalVar(colnames(num))
+  }
+  if (!length(intervalVar)) {
+    intervalVar <- NULL
+  }
   intervalVar <- intervalVar[1]  # Only single intervalVar is (for now) supported in functions where this is used
-  if (identical(intervalVar, freqVar) | ncol(num) == 0) {
+  if (identical(intervalVar, freqVar) | ncol(num) == sum(grepl("^(rlim_|lomax_|upmin_)", colnames(num)))) {
     z <- freq
   } else {
     if (is.null(intervalVar)) {
@@ -1080,3 +1176,33 @@ z_interval <- function(..., freq, freqVar, num, dominanceVar = NULL, intervalVar
   }
   z
 }
+
+
+
+# The function generated by generate_rlang_warn_extra()
+# Included here to avoid: All declared Imports should be used.
+rlang_warn_extra <- function(message = NULL, ...) {
+  message <- c(message, i = "See arguments `action_unused_dots` and `allowed_unused_dots`.")
+  rlang::warn(message, ...)
+}
+
+generate_rlang_warn_extra <- function(
+    action_unused_dots = "warn",
+    note = "See arguments `action_unused_dots` and `allowed_unused_dots`.", 
+    envir = parent.frame()) {
+  fun_txt <- paste0("function (message = NULL, ...) { \n message <- c(message, i = \"", note, "\") \n  rlang::", action_unused_dots,"(message, ...) \n }")
+  eval(parse(text = fun_txt), envir = envir)
+}
+
+generate_touch_dots <- function(allowed_unused_dots, envir = parent.frame()){
+  a <- allowed_unused_dots
+  fun_txt <- paste("function(", paste(paste(a,"= 1"), collapse = ", "), ", ...){\n ", paste(paste("force(", a, ")"), collapse = "\n "), "\n }")
+  eval(parse(text = fun_txt), envir = envir)
+}
+
+
+
+# To avoid check problems
+utils::globalVariables(c("rangeMin", "rangePercent"))
+
+

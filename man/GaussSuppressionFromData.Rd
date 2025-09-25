@@ -38,6 +38,7 @@ GaussSuppressionFromData(
   forcedInOutput = "ifNonNULL",
   unsafeInOutput = "ifForcedInOutput",
   lpPackage = NULL,
+  intervalSuppression = TRUE,
   aggregatePackage = "base",
   aggregateNA = TRUE,
   aggregateBaseOrder = FALSE,
@@ -47,7 +48,9 @@ GaussSuppressionFromData(
     "super-consistent"),
   recordAware = TRUE,
   collapseAware = FALSE,
-  linkedTables = NULL
+  linkedTables = NULL,
+  action_unused_dots = getOption("GaussSuppression.action_unused_dots", "inform"),
+  allowed_unused_dots = getOption("GaussSuppression.allowed_unused_dots", character(0))
 )
 }
 \arguments{
@@ -123,7 +126,12 @@ possible columns from  \code{xExtraPrimary} may also be included in the unsafe m
 \item{crossTable}{See above.}
 
 \item{preAggregate}{When \code{TRUE}, the data will be aggregated within the function to an appropriate level.
-This is defined by the dimensional variables according to \code{dimVar}, \code{hierarchies} or \code{formula} and in addition \code{charVar}.}
+This is defined by the dimensional variables according to \code{dimVar}, \code{hierarchies} or \code{formula} and in addition \code{charVar}.
+When \code{FALSE}, no aggregation is performed.
+When \code{NA}, the function will automatically decide whether to aggregate:
+aggregation is applied unless \code{freqVar} is present and the data contain no duplicated rows with respect to
+the dimensional variables and \code{charVar}.
+Exception: if a non-\code{NULL} \code{x} (the model matrix) is supplied, \code{NA} is treated as \code{FALSE}.}
 
 \item{extraAggregate}{When \code{TRUE}, the data will be aggregated by the dimensional variables according to \code{dimVar}, \code{hierarchies} or \code{formula}.
 The aggregated data and the corresponding x-matrix will only be used as input to the singleton
@@ -167,24 +175,40 @@ In addition, \code{TRUE} and \code{FALSE} are allowed as alternatives to  \code{
 see details.}
 
 \item{lpPackage}{\itemize{
-\item \strong{\code{lpPackage}:}
-When non-NULL, intervals by \code{\link{ComputeIntervals}}
-will be included in the output.
-See its documentation for valid parameter values for 'lpPackage'.
-If, additionally, at least one of the two \code{\link{RangeLimitsDefault}} parameters below is specified,
-further suppression will be performed to satisfy the interval width requirements.
-Then, the values in the output variable \code{suppressed_integer} means:
-no suppression (0),
-primary suppression (1),
-secondary suppression (2),
-additional suppression applied by an interval algorithm limited to linearly independent cells (3),
-and further suppression according to the final gauss algorithm (4).
-Intervals, \verb{[lo_1, up_1]}, are intervals calculated prior to additional suppression.
+\item When non-NULL, intervals computed by \code{\link[=ComputeIntervals]{ComputeIntervals()}} will
+be included in the output. Valid values are the names of supported R
+packages for linear programming backends: \code{"highs"}, \code{"Rsymphony"},
+\code{"Rglpk"}, or \code{"lpSolve"}.
+\item If interval requirements are specified, additional suppression will be
+performed to satisfy those requirements. Interval requirements can be
+set either through arguments of \code{\link[=IntervalLimits]{IntervalLimits()}} or by enabling
+\code{protectionIntervals = TRUE} in the primary suppression functions.
+See \code{\link[=IntervalLimits]{IntervalLimits()}} for a full description of the parameters
+(\code{protectionPercent}, \code{protectionLimit}, \code{loProtectionPercent},
+\code{loProtectionLimit}, \code{rangePercent}, \code{rangeMin}) and how interval
+requirements are calculated.
 \itemize{
-\item \strong{\code{rangePercent}:} Required interval width expressed as a percentage
-\item \strong{\code{rangeMin}:} Minimum required width of the interval
+\item In the output variable \code{suppressed_integer}, suppression status is
+coded as:
+0 = no suppression,
+1 = primary suppression,
+2 = secondary suppression,
+3 = additional suppression applied by an interval algorithm limited
+to linearly independent cells,
+4 = further suppression according to the final gauss algorithm.
+\item Intervals \verb{[lo_1, up_1]} are calculated prior to additional suppression.
+\item To disable additional suppression, set \code{intervalSuppression = FALSE}.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{         Please note that additional suppression based on parameters other than
+         rangePercent and rangeMin is currently considered experimental.
+         In particular, the names of the newer parameters may still change.
+}\if{html}{\out{</div>}}
 }
 }}
+
+\item{intervalSuppression}{Logical. If \code{FALSE}, additional suppression to satisfy interval
+requirements is disabled (default is \code{TRUE}). See description of
+\code{lpPackage} above.}
 
 \item{aggregatePackage}{Package used to preAggregate/extraAggregate.
 Parameter \code{pkg} to \code{\link[SSBtools]{aggregate_by_pkg}}.}
@@ -250,6 +274,23 @@ Each element in the list contains one or more names of the tables in \code{formu
 The corresponding tables will be combined and treated as a single table by the algorithm.
 For example: \code{linkedTables = list(c("table_1", "table_3"), "table_2")}.
 If \code{NULL} (default), each table in \code{formula} is used individually.}
+
+\item{action_unused_dots}{Character string controlling how unused arguments
+in \code{...} are handled. Internally uses \code{\link[ellipsis:check_dots_used]{ellipsis::check_dots_used()}} with a
+custom action. One of "warn", "abort", "inform", or "none". The value "none"
+disables the check entirely. The default is taken from
+\code{getOption("GaussSuppression.action_unused_dots")}, falling back to "inform"
+if the option is not set. Users can change the default globally with e.g.
+\code{options(GaussSuppression.action_unused_dots = "abort")}.}
+
+\item{allowed_unused_dots}{Character vector of argument names ignored by the
+unused-argument check. May be useful when this function is wrapped by
+another function, or in other cases where a correctly spelled argument is
+nevertheless not registered as used. The default is taken from
+\code{getOption("GaussSuppression.allowed_unused_dots")}, falling back to
+\code{character(0)} if the option is not set. Users can change the default
+globally with e.g.
+\code{options(GaussSuppression.allowed_unused_dots = c("plotColor", "lineType"))}.}
 }
 \value{
 Aggregated data with suppression information

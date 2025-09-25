@@ -1650,60 +1650,62 @@ one element for each of the linked tables.</p>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>              <span class="at">extend0 =</span> <span class="cn">FALSE</span>, </span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>              <span class="at">removeEmpty =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>              <span class="at">linkedGauss =</span> <span class="st">&quot;super-consistent&quot;</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; ====== Linked GaussSuppression by &quot;super-consistent&quot; algorithm:</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; [preAggregate 10*12-&gt;7*11]</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; [preAggregate 10*12-&gt;9*10]</span></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_anySum: .....................................</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_1&quot;</span>]])</span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt;      age    eu  year freq primary suppressed</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; 1  Total Total Total   44   FALSE      FALSE</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; 2  Total Total  2014   24   FALSE      FALSE</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 3  Total Total  2015    9   FALSE       TRUE</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; 4  Total Total  2016   11   FALSE       TRUE</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; 5  Total    EU Total   32   FALSE      FALSE</span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; 6  Total    EU  2014   16   FALSE      FALSE</span></span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; 7  Total    EU  2015    7   FALSE      FALSE</span></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; 8  Total    EU  2016    9   FALSE      FALSE</span></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; 9  Total nonEU Total   12   FALSE      FALSE</span></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; 10 Total nonEU  2014    8   FALSE      FALSE</span></span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; 11 Total nonEU  2015    2    TRUE       TRUE</span></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; 12 Total nonEU  2016    2    TRUE       TRUE</span></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; 13   old Total Total   17   FALSE      FALSE</span></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt; 14   old Total  2014   10   FALSE      FALSE</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; 15   old Total  2015    7   FALSE      FALSE</span></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; 16   old    EU Total   17   FALSE      FALSE</span></span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; 17   old    EU  2014   10   FALSE      FALSE</span></span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt; 18   old    EU  2015    7   FALSE      FALSE</span></span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co">#&gt; 19 young Total Total   27   FALSE      FALSE</span></span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">#&gt; 20 young Total  2014   14   FALSE      FALSE</span></span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">#&gt; 21 young Total  2015    2    TRUE       TRUE</span></span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co">#&gt; 22 young Total  2016   11   FALSE       TRUE</span></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="co">#&gt; 23 young    EU Total   15   FALSE      FALSE</span></span>
-<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co">#&gt; 24 young    EU  2014    6   FALSE      FALSE</span></span>
-<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co">#&gt; 25 young    EU  2016    9   FALSE      FALSE</span></span>
-<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">#&gt; 26 young nonEU Total   12   FALSE      FALSE</span></span>
-<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co">#&gt; 27 young nonEU  2014    8   FALSE      FALSE</span></span>
-<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="co">#&gt; 28 young nonEU  2015    2    TRUE       TRUE</span></span>
-<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="co">#&gt; 29 young nonEU  2016    2    TRUE       TRUE</span></span>
-<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_2&quot;</span>]])</span>
-<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co">#&gt;         geo  year freq primary suppressed</span></span>
-<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="co">#&gt; 1     Total Total   44   FALSE      FALSE</span></span>
-<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">#&gt; 2     Total  2014   24   FALSE      FALSE</span></span>
-<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt; 3     Total  2015    9   FALSE       TRUE</span></span>
-<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">#&gt; 4     Total  2016   11   FALSE       TRUE</span></span>
-<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">#&gt; 5   Iceland Total   12   FALSE      FALSE</span></span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; 6   Iceland  2014    8   FALSE      FALSE</span></span>
-<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; 7   Iceland  2015    2    TRUE       TRUE</span></span>
-<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">#&gt; 8   Iceland  2016    2    TRUE       TRUE</span></span>
-<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt; 9  Portugal Total    6   FALSE      FALSE</span></span>
-<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">#&gt; 10 Portugal  2014    1    TRUE       TRUE</span></span>
-<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="co">#&gt; 11 Portugal  2015    3   FALSE      FALSE</span></span>
-<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a><span class="co">#&gt; 12 Portugal  2016    2    TRUE       TRUE</span></span>
-<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a><span class="co">#&gt; 13    Spain Total   26   FALSE      FALSE</span></span>
-<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt; 14    Spain  2014   15   FALSE       TRUE</span></span>
-<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co">#&gt; 15    Spain  2015    4   FALSE      FALSE</span></span>
-<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="co">#&gt; 16    Spain  2016    7   FALSE       TRUE</span></span></code></pre></div>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; ====== Linked GaussSuppression by &quot;super-consistent&quot; algorithm:</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_anySum: .....................................</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_1&quot;</span>]])</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt;      age    eu  year freq primary suppressed</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 1  Total Total Total   44   FALSE      FALSE</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; 2  Total Total  2014   24   FALSE      FALSE</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; 3  Total Total  2015    9   FALSE       TRUE</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="co">#&gt; 4  Total Total  2016   11   FALSE       TRUE</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#&gt; 5  Total    EU Total   32   FALSE      FALSE</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="co">#&gt; 6  Total    EU  2014   16   FALSE      FALSE</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#&gt; 7  Total    EU  2015    7   FALSE      FALSE</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; 8  Total    EU  2016    9   FALSE      FALSE</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt; 9  Total nonEU Total   12   FALSE      FALSE</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co">#&gt; 10 Total nonEU  2014    8   FALSE      FALSE</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="co">#&gt; 11 Total nonEU  2015    2    TRUE       TRUE</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co">#&gt; 12 Total nonEU  2016    2    TRUE       TRUE</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co">#&gt; 13   old Total Total   17   FALSE      FALSE</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co">#&gt; 14   old Total  2014   10   FALSE      FALSE</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="co">#&gt; 15   old Total  2015    7   FALSE      FALSE</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="co">#&gt; 16   old    EU Total   17   FALSE      FALSE</span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co">#&gt; 17   old    EU  2014   10   FALSE      FALSE</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="co">#&gt; 18   old    EU  2015    7   FALSE      FALSE</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co">#&gt; 19 young Total Total   27   FALSE      FALSE</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="co">#&gt; 20 young Total  2014   14   FALSE      FALSE</span></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="co">#&gt; 21 young Total  2015    2    TRUE       TRUE</span></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co">#&gt; 22 young Total  2016   11   FALSE       TRUE</span></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="co">#&gt; 23 young    EU Total   15   FALSE      FALSE</span></span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="co">#&gt; 24 young    EU  2014    6   FALSE      FALSE</span></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co">#&gt; 25 young    EU  2016    9   FALSE      FALSE</span></span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="co">#&gt; 26 young nonEU Total   12   FALSE      FALSE</span></span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="co">#&gt; 27 young nonEU  2014    8   FALSE      FALSE</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="co">#&gt; 28 young nonEU  2015    2    TRUE       TRUE</span></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co">#&gt; 29 young nonEU  2016    2    TRUE       TRUE</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_2&quot;</span>]])</span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="co">#&gt;         geo  year freq primary suppressed</span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="co">#&gt; 1     Total Total   44   FALSE      FALSE</span></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="co">#&gt; 2     Total  2014   24   FALSE      FALSE</span></span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="co">#&gt; 3     Total  2015    9   FALSE       TRUE</span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="co">#&gt; 4     Total  2016   11   FALSE       TRUE</span></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="co">#&gt; 5   Iceland Total   12   FALSE      FALSE</span></span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="co">#&gt; 6   Iceland  2014    8   FALSE      FALSE</span></span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="co">#&gt; 7   Iceland  2015    2    TRUE       TRUE</span></span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="co">#&gt; 8   Iceland  2016    2    TRUE       TRUE</span></span>
+<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="co">#&gt; 9  Portugal Total    6   FALSE      FALSE</span></span>
+<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a><span class="co">#&gt; 10 Portugal  2014    1    TRUE       TRUE</span></span>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a><span class="co">#&gt; 11 Portugal  2015    3   FALSE      FALSE</span></span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a><span class="co">#&gt; 12 Portugal  2016    2    TRUE       TRUE</span></span>
+<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a><span class="co">#&gt; 13    Spain Total   26   FALSE      FALSE</span></span>
+<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a><span class="co">#&gt; 14    Spain  2014   15   FALSE       TRUE</span></span>
+<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a><span class="co">#&gt; 15    Spain  2015    4   FALSE      FALSE</span></span>
+<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a><span class="co">#&gt; 16    Spain  2016    7   FALSE       TRUE</span></span></code></pre></div>
 </div>
 <div id="suppresslinkedtables-with-hierarchies" class="section level2">
 <h2><code>SuppressLinkedTables()</code> with
@@ -2230,121 +2232,123 @@ Below is shown <code>SuppressLinkedTables()</code> with
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>                               <span class="at">linkedGauss =</span> <span class="st">&quot;super-consistent&quot;</span>,</span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>                               <span class="at">lpPackage =</span> <span class="st">&quot;highs&quot;</span>, </span>
 <span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>                               <span class="at">rangeMin =</span> <span class="dv">4</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; ====== Linked GaussSuppression by &quot;super-consistent&quot; algorithm:</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt; [preAggregate 10*12-&gt;7*11]</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; [preAggregate 10*12-&gt;9*10]</span></span>
 <span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_anySum: .....................................</span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; (20*18-DDrow-&gt;16*18-&gt;-0exact-&gt;9*5-DDcol2-&gt;9*3-GaussI-&gt;9*3)</span></span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; Using highs for intervals...</span></span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; ----</span></span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt; (20*18-DDrow-&gt;16*18-&gt;)</span></span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt; ..................</span></span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; 10+1-6+2-5+3+</span></span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt;   2: 1 new, (4.000) 1-</span></span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt;   1: 2 new, (3.000) 1+</span></span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_none: .............................</span></span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; (20*16-DDrow-&gt;16*16-&gt;-0exact-&gt;11*5-DDcol2-&gt;11*3-GaussI-&gt;11*3)</span></span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; Using highs for intervals...</span></span>
-<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; ----</span></span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a></span>
-<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_1&quot;</span>]])</span>
-<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt;      age    eu  year freq rlim_freq lo_1 up_1 lo up suppressed_integer primary</span></span>
-<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; 1  Total Total Total   44        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; 2  Total Total  2014   24        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; 3  Total Total  2015    9        NA   NA   NA NA NA                  2   FALSE</span></span>
-<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; 4  Total Total  2016   11        NA   NA   NA NA NA                  2   FALSE</span></span>
-<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; 5  Total    EU Total   32        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; 6  Total    EU  2014   16        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt; 7  Total    EU  2015    7        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; 8  Total    EU  2016    9        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt; 9  Total nonEU Total   12        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="co">#&gt; 10 Total nonEU  2014    8        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a><span class="co">#&gt; 11 Total nonEU  2015    2         4    0    4  0  4                  1    TRUE</span></span>
-<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a><span class="co">#&gt; 12 Total nonEU  2016    2         4    0    4  0  4                  1    TRUE</span></span>
-<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a><span class="co">#&gt; 13   old Total Total   17        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="co">#&gt; 14   old Total  2014   10        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a><span class="co">#&gt; 15   old Total  2015    7        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a><span class="co">#&gt; 16   old    EU Total   17        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="co">#&gt; 17   old    EU  2014   10        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a><span class="co">#&gt; 18   old    EU  2015    7        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a><span class="co">#&gt; 19 young Total Total   27        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a><span class="co">#&gt; 20 young Total  2014   14        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a><span class="co">#&gt; 21 young Total  2015    2         4    0    4  0  4                  1    TRUE</span></span>
-<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a><span class="co">#&gt; 22 young Total  2016   11        NA   NA   NA NA NA                  2   FALSE</span></span>
-<span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a><span class="co">#&gt; 23 young    EU Total   15        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a><span class="co">#&gt; 24 young    EU  2014    6        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a><span class="co">#&gt; 25 young    EU  2016    9        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a><span class="co">#&gt; 26 young nonEU Total   12        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-59"><a href="#cb8-59" tabindex="-1"></a><span class="co">#&gt; 27 young nonEU  2014    8        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-60"><a href="#cb8-60" tabindex="-1"></a><span class="co">#&gt; 28 young nonEU  2015    2         4    0    4  0  4                  1    TRUE</span></span>
-<span id="cb8-61"><a href="#cb8-61" tabindex="-1"></a><span class="co">#&gt; 29 young nonEU  2016    2         4    0    4  0  4                  1    TRUE</span></span>
-<span id="cb8-62"><a href="#cb8-62" tabindex="-1"></a><span class="co">#&gt;    suppressed</span></span>
-<span id="cb8-63"><a href="#cb8-63" tabindex="-1"></a><span class="co">#&gt; 1       FALSE</span></span>
-<span id="cb8-64"><a href="#cb8-64" tabindex="-1"></a><span class="co">#&gt; 2       FALSE</span></span>
-<span id="cb8-65"><a href="#cb8-65" tabindex="-1"></a><span class="co">#&gt; 3        TRUE</span></span>
-<span id="cb8-66"><a href="#cb8-66" tabindex="-1"></a><span class="co">#&gt; 4        TRUE</span></span>
-<span id="cb8-67"><a href="#cb8-67" tabindex="-1"></a><span class="co">#&gt; 5       FALSE</span></span>
-<span id="cb8-68"><a href="#cb8-68" tabindex="-1"></a><span class="co">#&gt; 6       FALSE</span></span>
-<span id="cb8-69"><a href="#cb8-69" tabindex="-1"></a><span class="co">#&gt; 7       FALSE</span></span>
-<span id="cb8-70"><a href="#cb8-70" tabindex="-1"></a><span class="co">#&gt; 8       FALSE</span></span>
-<span id="cb8-71"><a href="#cb8-71" tabindex="-1"></a><span class="co">#&gt; 9       FALSE</span></span>
-<span id="cb8-72"><a href="#cb8-72" tabindex="-1"></a><span class="co">#&gt; 10      FALSE</span></span>
-<span id="cb8-73"><a href="#cb8-73" tabindex="-1"></a><span class="co">#&gt; 11       TRUE</span></span>
-<span id="cb8-74"><a href="#cb8-74" tabindex="-1"></a><span class="co">#&gt; 12       TRUE</span></span>
-<span id="cb8-75"><a href="#cb8-75" tabindex="-1"></a><span class="co">#&gt; 13      FALSE</span></span>
-<span id="cb8-76"><a href="#cb8-76" tabindex="-1"></a><span class="co">#&gt; 14      FALSE</span></span>
-<span id="cb8-77"><a href="#cb8-77" tabindex="-1"></a><span class="co">#&gt; 15      FALSE</span></span>
-<span id="cb8-78"><a href="#cb8-78" tabindex="-1"></a><span class="co">#&gt; 16      FALSE</span></span>
-<span id="cb8-79"><a href="#cb8-79" tabindex="-1"></a><span class="co">#&gt; 17      FALSE</span></span>
-<span id="cb8-80"><a href="#cb8-80" tabindex="-1"></a><span class="co">#&gt; 18      FALSE</span></span>
-<span id="cb8-81"><a href="#cb8-81" tabindex="-1"></a><span class="co">#&gt; 19      FALSE</span></span>
-<span id="cb8-82"><a href="#cb8-82" tabindex="-1"></a><span class="co">#&gt; 20      FALSE</span></span>
-<span id="cb8-83"><a href="#cb8-83" tabindex="-1"></a><span class="co">#&gt; 21       TRUE</span></span>
-<span id="cb8-84"><a href="#cb8-84" tabindex="-1"></a><span class="co">#&gt; 22       TRUE</span></span>
-<span id="cb8-85"><a href="#cb8-85" tabindex="-1"></a><span class="co">#&gt; 23      FALSE</span></span>
-<span id="cb8-86"><a href="#cb8-86" tabindex="-1"></a><span class="co">#&gt; 24      FALSE</span></span>
-<span id="cb8-87"><a href="#cb8-87" tabindex="-1"></a><span class="co">#&gt; 25      FALSE</span></span>
-<span id="cb8-88"><a href="#cb8-88" tabindex="-1"></a><span class="co">#&gt; 26      FALSE</span></span>
-<span id="cb8-89"><a href="#cb8-89" tabindex="-1"></a><span class="co">#&gt; 27      FALSE</span></span>
-<span id="cb8-90"><a href="#cb8-90" tabindex="-1"></a><span class="co">#&gt; 28       TRUE</span></span>
-<span id="cb8-91"><a href="#cb8-91" tabindex="-1"></a><span class="co">#&gt; 29       TRUE</span></span>
-<span id="cb8-92"><a href="#cb8-92" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_2&quot;</span>]])</span>
-<span id="cb8-93"><a href="#cb8-93" tabindex="-1"></a><span class="co">#&gt;         geo  year freq rlim_freq lo_1 up_1 lo up suppressed_integer primary</span></span>
-<span id="cb8-94"><a href="#cb8-94" tabindex="-1"></a><span class="co">#&gt; 1     Total Total   44        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-95"><a href="#cb8-95" tabindex="-1"></a><span class="co">#&gt; 2     Total  2014   24        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-96"><a href="#cb8-96" tabindex="-1"></a><span class="co">#&gt; 3     Total  2015    9        NA   NA   NA NA NA                  2   FALSE</span></span>
-<span id="cb8-97"><a href="#cb8-97" tabindex="-1"></a><span class="co">#&gt; 4     Total  2016   11        NA   NA   NA NA NA                  2   FALSE</span></span>
-<span id="cb8-98"><a href="#cb8-98" tabindex="-1"></a><span class="co">#&gt; 5   Iceland Total   12        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-99"><a href="#cb8-99" tabindex="-1"></a><span class="co">#&gt; 6   Iceland  2014    8        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-100"><a href="#cb8-100" tabindex="-1"></a><span class="co">#&gt; 7   Iceland  2015    2         4    0    4  0  4                  1    TRUE</span></span>
-<span id="cb8-101"><a href="#cb8-101" tabindex="-1"></a><span class="co">#&gt; 8   Iceland  2016    2         4    0    4  0  4                  1    TRUE</span></span>
-<span id="cb8-102"><a href="#cb8-102" tabindex="-1"></a><span class="co">#&gt; 9  Portugal Total    6        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-103"><a href="#cb8-103" tabindex="-1"></a><span class="co">#&gt; 10 Portugal  2014    1         4    0    3  0  6                  1    TRUE</span></span>
-<span id="cb8-104"><a href="#cb8-104" tabindex="-1"></a><span class="co">#&gt; 11 Portugal  2015    3        NA   NA   NA NA NA                  3   FALSE</span></span>
-<span id="cb8-105"><a href="#cb8-105" tabindex="-1"></a><span class="co">#&gt; 12 Portugal  2016    2         4    0    3  0  6                  1    TRUE</span></span>
-<span id="cb8-106"><a href="#cb8-106" tabindex="-1"></a><span class="co">#&gt; 13    Spain Total   26        NA   NA   NA NA NA                  0   FALSE</span></span>
-<span id="cb8-107"><a href="#cb8-107" tabindex="-1"></a><span class="co">#&gt; 14    Spain  2014   15        NA   NA   NA NA NA                  2   FALSE</span></span>
-<span id="cb8-108"><a href="#cb8-108" tabindex="-1"></a><span class="co">#&gt; 15    Spain  2015    4        NA   NA   NA NA NA                  3   FALSE</span></span>
-<span id="cb8-109"><a href="#cb8-109" tabindex="-1"></a><span class="co">#&gt; 16    Spain  2016    7        NA   NA   NA NA NA                  2   FALSE</span></span>
-<span id="cb8-110"><a href="#cb8-110" tabindex="-1"></a><span class="co">#&gt;    suppressed</span></span>
-<span id="cb8-111"><a href="#cb8-111" tabindex="-1"></a><span class="co">#&gt; 1       FALSE</span></span>
-<span id="cb8-112"><a href="#cb8-112" tabindex="-1"></a><span class="co">#&gt; 2       FALSE</span></span>
-<span id="cb8-113"><a href="#cb8-113" tabindex="-1"></a><span class="co">#&gt; 3        TRUE</span></span>
-<span id="cb8-114"><a href="#cb8-114" tabindex="-1"></a><span class="co">#&gt; 4        TRUE</span></span>
-<span id="cb8-115"><a href="#cb8-115" tabindex="-1"></a><span class="co">#&gt; 5       FALSE</span></span>
-<span id="cb8-116"><a href="#cb8-116" tabindex="-1"></a><span class="co">#&gt; 6       FALSE</span></span>
-<span id="cb8-117"><a href="#cb8-117" tabindex="-1"></a><span class="co">#&gt; 7        TRUE</span></span>
-<span id="cb8-118"><a href="#cb8-118" tabindex="-1"></a><span class="co">#&gt; 8        TRUE</span></span>
-<span id="cb8-119"><a href="#cb8-119" tabindex="-1"></a><span class="co">#&gt; 9       FALSE</span></span>
-<span id="cb8-120"><a href="#cb8-120" tabindex="-1"></a><span class="co">#&gt; 10       TRUE</span></span>
-<span id="cb8-121"><a href="#cb8-121" tabindex="-1"></a><span class="co">#&gt; 11       TRUE</span></span>
-<span id="cb8-122"><a href="#cb8-122" tabindex="-1"></a><span class="co">#&gt; 12       TRUE</span></span>
-<span id="cb8-123"><a href="#cb8-123" tabindex="-1"></a><span class="co">#&gt; 13      FALSE</span></span>
-<span id="cb8-124"><a href="#cb8-124" tabindex="-1"></a><span class="co">#&gt; 14       TRUE</span></span>
-<span id="cb8-125"><a href="#cb8-125" tabindex="-1"></a><span class="co">#&gt; 15       TRUE</span></span>
-<span id="cb8-126"><a href="#cb8-126" tabindex="-1"></a><span class="co">#&gt; 16       TRUE</span></span></code></pre></div>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; ====== Linked GaussSuppression by &quot;super-consistent&quot; algorithm:</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_anySum: .....................................</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt; (16*18-0exact-&gt;9*5-DDcol2-&gt;9*3-GaussI-&gt;9*3)</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt; Using highs for intervals...</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt; ----</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; (16*18)</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt; ..................</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt; 10+1-6+2-5+3+</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt;   2: 1 new, (4.000) 1-</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt;   1: 2 new, (3.000) 1+</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_none: .............................</span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; (16*16-0exact-&gt;11*5-DDcol2-&gt;11*3-GaussI-&gt;11*3)</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt; Using highs for intervals...</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; ----</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_1&quot;</span>]])</span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt;      age    eu  year freq rlim_freq lo_1 up_1 lo up suppressed_integer primary</span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; 1  Total Total Total   44        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; 2  Total Total  2014   24        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt; 3  Total Total  2015    9        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; 4  Total Total  2016   11        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt; 5  Total    EU Total   32        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt; 6  Total    EU  2014   16        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt; 7  Total    EU  2015    7        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="co">#&gt; 8  Total    EU  2016    9        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a><span class="co">#&gt; 9  Total nonEU Total   12        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a><span class="co">#&gt; 10 Total nonEU  2014    8        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a><span class="co">#&gt; 11 Total nonEU  2015    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="co">#&gt; 12 Total nonEU  2016    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a><span class="co">#&gt; 13   old Total Total   17        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a><span class="co">#&gt; 14   old Total  2014   10        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="co">#&gt; 15   old Total  2015    7        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a><span class="co">#&gt; 16   old    EU Total   17        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a><span class="co">#&gt; 17   old    EU  2014   10        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a><span class="co">#&gt; 18   old    EU  2015    7        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a><span class="co">#&gt; 19 young Total Total   27        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a><span class="co">#&gt; 20 young Total  2014   14        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a><span class="co">#&gt; 21 young Total  2015    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a><span class="co">#&gt; 22 young Total  2016   11        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a><span class="co">#&gt; 23 young    EU Total   15        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a><span class="co">#&gt; 24 young    EU  2014    6        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-59"><a href="#cb8-59" tabindex="-1"></a><span class="co">#&gt; 25 young    EU  2016    9        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-60"><a href="#cb8-60" tabindex="-1"></a><span class="co">#&gt; 26 young nonEU Total   12        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-61"><a href="#cb8-61" tabindex="-1"></a><span class="co">#&gt; 27 young nonEU  2014    8        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-62"><a href="#cb8-62" tabindex="-1"></a><span class="co">#&gt; 28 young nonEU  2015    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-63"><a href="#cb8-63" tabindex="-1"></a><span class="co">#&gt; 29 young nonEU  2016    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-64"><a href="#cb8-64" tabindex="-1"></a><span class="co">#&gt;    suppressed</span></span>
+<span id="cb8-65"><a href="#cb8-65" tabindex="-1"></a><span class="co">#&gt; 1       FALSE</span></span>
+<span id="cb8-66"><a href="#cb8-66" tabindex="-1"></a><span class="co">#&gt; 2       FALSE</span></span>
+<span id="cb8-67"><a href="#cb8-67" tabindex="-1"></a><span class="co">#&gt; 3        TRUE</span></span>
+<span id="cb8-68"><a href="#cb8-68" tabindex="-1"></a><span class="co">#&gt; 4        TRUE</span></span>
+<span id="cb8-69"><a href="#cb8-69" tabindex="-1"></a><span class="co">#&gt; 5       FALSE</span></span>
+<span id="cb8-70"><a href="#cb8-70" tabindex="-1"></a><span class="co">#&gt; 6       FALSE</span></span>
+<span id="cb8-71"><a href="#cb8-71" tabindex="-1"></a><span class="co">#&gt; 7       FALSE</span></span>
+<span id="cb8-72"><a href="#cb8-72" tabindex="-1"></a><span class="co">#&gt; 8       FALSE</span></span>
+<span id="cb8-73"><a href="#cb8-73" tabindex="-1"></a><span class="co">#&gt; 9       FALSE</span></span>
+<span id="cb8-74"><a href="#cb8-74" tabindex="-1"></a><span class="co">#&gt; 10      FALSE</span></span>
+<span id="cb8-75"><a href="#cb8-75" tabindex="-1"></a><span class="co">#&gt; 11       TRUE</span></span>
+<span id="cb8-76"><a href="#cb8-76" tabindex="-1"></a><span class="co">#&gt; 12       TRUE</span></span>
+<span id="cb8-77"><a href="#cb8-77" tabindex="-1"></a><span class="co">#&gt; 13      FALSE</span></span>
+<span id="cb8-78"><a href="#cb8-78" tabindex="-1"></a><span class="co">#&gt; 14      FALSE</span></span>
+<span id="cb8-79"><a href="#cb8-79" tabindex="-1"></a><span class="co">#&gt; 15      FALSE</span></span>
+<span id="cb8-80"><a href="#cb8-80" tabindex="-1"></a><span class="co">#&gt; 16      FALSE</span></span>
+<span id="cb8-81"><a href="#cb8-81" tabindex="-1"></a><span class="co">#&gt; 17      FALSE</span></span>
+<span id="cb8-82"><a href="#cb8-82" tabindex="-1"></a><span class="co">#&gt; 18      FALSE</span></span>
+<span id="cb8-83"><a href="#cb8-83" tabindex="-1"></a><span class="co">#&gt; 19      FALSE</span></span>
+<span id="cb8-84"><a href="#cb8-84" tabindex="-1"></a><span class="co">#&gt; 20      FALSE</span></span>
+<span id="cb8-85"><a href="#cb8-85" tabindex="-1"></a><span class="co">#&gt; 21       TRUE</span></span>
+<span id="cb8-86"><a href="#cb8-86" tabindex="-1"></a><span class="co">#&gt; 22       TRUE</span></span>
+<span id="cb8-87"><a href="#cb8-87" tabindex="-1"></a><span class="co">#&gt; 23      FALSE</span></span>
+<span id="cb8-88"><a href="#cb8-88" tabindex="-1"></a><span class="co">#&gt; 24      FALSE</span></span>
+<span id="cb8-89"><a href="#cb8-89" tabindex="-1"></a><span class="co">#&gt; 25      FALSE</span></span>
+<span id="cb8-90"><a href="#cb8-90" tabindex="-1"></a><span class="co">#&gt; 26      FALSE</span></span>
+<span id="cb8-91"><a href="#cb8-91" tabindex="-1"></a><span class="co">#&gt; 27      FALSE</span></span>
+<span id="cb8-92"><a href="#cb8-92" tabindex="-1"></a><span class="co">#&gt; 28       TRUE</span></span>
+<span id="cb8-93"><a href="#cb8-93" tabindex="-1"></a><span class="co">#&gt; 29       TRUE</span></span>
+<span id="cb8-94"><a href="#cb8-94" tabindex="-1"></a><span class="fu">print</span>(output[[<span class="st">&quot;table_2&quot;</span>]])</span>
+<span id="cb8-95"><a href="#cb8-95" tabindex="-1"></a><span class="co">#&gt;         geo  year freq rlim_freq lo_1 up_1 lo up suppressed_integer primary</span></span>
+<span id="cb8-96"><a href="#cb8-96" tabindex="-1"></a><span class="co">#&gt; 1     Total Total   44        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-97"><a href="#cb8-97" tabindex="-1"></a><span class="co">#&gt; 2     Total  2014   24        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-98"><a href="#cb8-98" tabindex="-1"></a><span class="co">#&gt; 3     Total  2015    9        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-99"><a href="#cb8-99" tabindex="-1"></a><span class="co">#&gt; 4     Total  2016   11        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-100"><a href="#cb8-100" tabindex="-1"></a><span class="co">#&gt; 5   Iceland Total   12        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-101"><a href="#cb8-101" tabindex="-1"></a><span class="co">#&gt; 6   Iceland  2014    8        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-102"><a href="#cb8-102" tabindex="-1"></a><span class="co">#&gt; 7   Iceland  2015    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-103"><a href="#cb8-103" tabindex="-1"></a><span class="co">#&gt; 8   Iceland  2016    2         4    0    4  0  4                  1    TRUE</span></span>
+<span id="cb8-104"><a href="#cb8-104" tabindex="-1"></a><span class="co">#&gt; 9  Portugal Total    6        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-105"><a href="#cb8-105" tabindex="-1"></a><span class="co">#&gt; 10 Portugal  2014    1         4    0    3  0  6                  1    TRUE</span></span>
+<span id="cb8-106"><a href="#cb8-106" tabindex="-1"></a><span class="co">#&gt; 11 Portugal  2015    3        NA   NA   NA NA NA                  3   FALSE</span></span>
+<span id="cb8-107"><a href="#cb8-107" tabindex="-1"></a><span class="co">#&gt; 12 Portugal  2016    2         4    0    3  0  6                  1    TRUE</span></span>
+<span id="cb8-108"><a href="#cb8-108" tabindex="-1"></a><span class="co">#&gt; 13    Spain Total   26        NA   NA   NA NA NA                  0   FALSE</span></span>
+<span id="cb8-109"><a href="#cb8-109" tabindex="-1"></a><span class="co">#&gt; 14    Spain  2014   15        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-110"><a href="#cb8-110" tabindex="-1"></a><span class="co">#&gt; 15    Spain  2015    4        NA   NA   NA NA NA                  3   FALSE</span></span>
+<span id="cb8-111"><a href="#cb8-111" tabindex="-1"></a><span class="co">#&gt; 16    Spain  2016    7        NA   NA   NA NA NA                  2   FALSE</span></span>
+<span id="cb8-112"><a href="#cb8-112" tabindex="-1"></a><span class="co">#&gt;    suppressed</span></span>
+<span id="cb8-113"><a href="#cb8-113" tabindex="-1"></a><span class="co">#&gt; 1       FALSE</span></span>
+<span id="cb8-114"><a href="#cb8-114" tabindex="-1"></a><span class="co">#&gt; 2       FALSE</span></span>
+<span id="cb8-115"><a href="#cb8-115" tabindex="-1"></a><span class="co">#&gt; 3        TRUE</span></span>
+<span id="cb8-116"><a href="#cb8-116" tabindex="-1"></a><span class="co">#&gt; 4        TRUE</span></span>
+<span id="cb8-117"><a href="#cb8-117" tabindex="-1"></a><span class="co">#&gt; 5       FALSE</span></span>
+<span id="cb8-118"><a href="#cb8-118" tabindex="-1"></a><span class="co">#&gt; 6       FALSE</span></span>
+<span id="cb8-119"><a href="#cb8-119" tabindex="-1"></a><span class="co">#&gt; 7        TRUE</span></span>
+<span id="cb8-120"><a href="#cb8-120" tabindex="-1"></a><span class="co">#&gt; 8        TRUE</span></span>
+<span id="cb8-121"><a href="#cb8-121" tabindex="-1"></a><span class="co">#&gt; 9       FALSE</span></span>
+<span id="cb8-122"><a href="#cb8-122" tabindex="-1"></a><span class="co">#&gt; 10       TRUE</span></span>
+<span id="cb8-123"><a href="#cb8-123" tabindex="-1"></a><span class="co">#&gt; 11       TRUE</span></span>
+<span id="cb8-124"><a href="#cb8-124" tabindex="-1"></a><span class="co">#&gt; 12       TRUE</span></span>
+<span id="cb8-125"><a href="#cb8-125" tabindex="-1"></a><span class="co">#&gt; 13      FALSE</span></span>
+<span id="cb8-126"><a href="#cb8-126" tabindex="-1"></a><span class="co">#&gt; 14       TRUE</span></span>
+<span id="cb8-127"><a href="#cb8-127" tabindex="-1"></a><span class="co">#&gt; 15       TRUE</span></span>
+<span id="cb8-128"><a href="#cb8-128" tabindex="-1"></a><span class="co">#&gt; 16       TRUE</span></span></code></pre></div>
 </div>
 
 
