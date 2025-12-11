@@ -273,8 +273,9 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -285,7 +286,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -701,7 +702,7 @@ contributor are primary suppressed.</p>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>                        <span class="at">numVar =</span> <span class="st">&quot;value&quot;</span>, </span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>                        <span class="at">dimVar=</span> <span class="fu">c</span>(<span class="st">&quot;sector4&quot;</span>, <span class="st">&quot;geo&quot;</span>), </span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                        <span class="at">maxN=</span><span class="dv">1</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*4] Checking ....</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*5] Checking ....</span></span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ..............::::</span></span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;          sector4      geo value nRule nAll primary suppressed</span></span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 1          Total    Total 462.3    20   20   FALSE      FALSE</span></span>
@@ -865,7 +866,7 @@ the cell total.</p>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>                      <span class="at">numVar =</span> <span class="st">&quot;value&quot;</span>, </span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>                      <span class="at">dimVar=</span> <span class="fu">c</span>(<span class="st">&quot;sector4&quot;</span>, <span class="st">&quot;geo&quot;</span>), </span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>                      <span class="at">n =</span> <span class="dv">1</span>, <span class="at">k =</span> <span class="dv">80</span>, <span class="at">allDominance =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*4] Checking ....</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*5] Checking ....</span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ..............::</span></span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;          sector4      geo value dominant1 max1contributor n_contr n_non0_contr</span></span>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; 1          Total    Total 462.3 0.2089552               3      20           20</span></span>
@@ -1055,7 +1056,7 @@ including the variables “sector2” and “eu”.</p>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>                                <span class="at">numVar =</span> <span class="st">&quot;value&quot;</span>, </span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>                                <span class="at">dimVar=</span> <span class="fu">c</span>(<span class="st">&quot;sector4&quot;</span>, <span class="st">&quot;sector2&quot;</span>, <span class="st">&quot;geo&quot;</span>, <span class="st">&quot;eu&quot;</span>), </span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>                                <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">k =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">99</span>))</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*5-&gt;10*6] Checking ....</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*5-&gt;10*7] Checking ....</span></span>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: .............::::::</span></span>
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="fu">head</span>(output)</span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt;   sector4      geo value primary suppressed</span></span>
@@ -1292,7 +1293,7 @@ input:</p>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>                                <span class="at">numVar =</span> <span class="st">&quot;value&quot;</span>, </span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>                                <span class="at">hierarchies =</span> dimlists,  </span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>                                <span class="at">n =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">k =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">99</span>))</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*4] Checking ....</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*3-&gt;10*5] Checking ....</span></span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: .............::::::</span></span></code></pre></div>
 <p><br />
 <br />
@@ -1309,7 +1310,7 @@ contributors are primary suppressed.</p>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                                  <span class="at">formula =</span> <span class="sc">~</span>sector2<span class="sc">*</span>geo <span class="sc">+</span> sector4<span class="sc">*</span>eu, </span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                                  <span class="at">maxN=</span><span class="dv">2</span>,</span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>                                  <span class="at">removeEmpty =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*5-&gt;10*6] Checking ....</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*5-&gt;10*7] Checking ....</span></span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ............:::::</span></span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="fu">head</span>(output)</span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt;        geo sector4 value nRule nAll primary suppressed</span></span>
@@ -2485,7 +2486,7 @@ required. Therefore, the cell on line 16 is additionally suppressed</p>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>                                <span class="at">pPercent =</span> <span class="dv">30</span>, </span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>                                <span class="at">rangePercent =</span> <span class="dv">70</span>, <span class="at">rangeMin =</span> <span class="dv">80</span>, </span>
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>                                <span class="at">lpPackage =</span> <span class="st">&quot;Rglpk&quot;</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*4-&gt;10*5] Checking ....</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; [extraAggregate 20*4-&gt;10*6] Checking ....</span></span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; GaussSuppression_numttHTT: ............</span></span>
 <span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; (10*8-DDcol-&gt;10*6-0exact-&gt;10*5-GaussI-&gt;10*5)</span></span>
 <span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; </span></span>

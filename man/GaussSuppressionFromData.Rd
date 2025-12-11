@@ -35,6 +35,7 @@ GaussSuppressionFromData(
   specLock = FALSE,
   freqVarNew = rev(make.unique(c(names(data), "freq")))[1],
   nUniqueVar = rev(make.unique(c(names(data), "nUnique")))[1],
+  origIdxVar = rev(make.unique(c(names(data), "origIdx")))[1],
   forcedInOutput = "ifNonNULL",
   unsafeInOutput = "ifForcedInOutput",
   lpPackage = NULL,
@@ -49,7 +50,10 @@ GaussSuppressionFromData(
   recordAware = TRUE,
   collapseAware = FALSE,
   linkedTables = NULL,
-  action_unused_dots = getOption("GaussSuppression.action_unused_dots", "inform"),
+  da_vars = NULL,
+  da_fun = NULL,
+  da_args = NULL,
+  action_unused_dots = getOption("GaussSuppression.action_unused_dots", "warn"),
   allowed_unused_dots = getOption("GaussSuppression.allowed_unused_dots", character(0))
 )
 }
@@ -165,6 +169,13 @@ Default is \code{"nUnique"} provided this is not found in \code{names(data)}.
 If an existing variable is passed as input,
 this variable will apply only when \code{preAggregate}/\code{extraAggregate} is not done.}
 
+\item{origIdxVar}{Name of the variable generated in the \code{extraAggregate} step
+when \code{preAggregate} is FALSE.
+The variable contains the original row index in cases where
+\code{nUniqueVar} equals 1.
+Default is \code{"origIdx"} provided this name is not already
+present in \code{names(data)}.}
+
 \item{forcedInOutput}{Whether to include \code{forced} as an output column.
 One of \code{"ifNonNULL"} (default), \code{"always"}, \code{"ifany"} and \code{"no"}.
 In addition, \code{TRUE} and \code{FALSE} are allowed as alternatives to  \code{"always"} and \code{"no"}.}
@@ -275,11 +286,26 @@ The corresponding tables will be combined and treated as a single table by the a
 For example: \code{linkedTables = list(c("table_1", "table_3"), "table_2")}.
 If \code{NULL} (default), each table in \code{formula} is used individually.}
 
+\item{da_vars}{The \code{vars} argument passed to \code{\link[SSBtools:dummy_aggregate]{SSBtools::dummy_aggregate()}}.
+Together with the two parameters below, this enables computing results via
+\code{\link[SSBtools:aggregate_multiple_fun]{SSBtools::aggregate_multiple_fun()}} in the same way as when using
+\code{\link[SSBtools:model_aggregate]{SSBtools::model_aggregate()}}.
+The calculations are performed by calling \code{\link[SSBtools:dummy_aggregate]{SSBtools::dummy_aggregate()}} with
+the model matrix (\code{x}) before any potential use of \code{extraAggregate}.
+Internally, the result is stored in a data frame named \code{da_out}, which is
+available to the supplied functions in the same manner as \code{num}.
+The columns of \code{da_out} are added to the final output.
+See \code{\link[=SuppressDominantCells]{SuppressDominantCells()}} examples.}
+
+\item{da_fun}{The \code{fun} argument passed to \code{\link[SSBtools:dummy_aggregate]{SSBtools::dummy_aggregate()}}.}
+
+\item{da_args}{A list of additional arguments passed to \code{\link[SSBtools:dummy_aggregate]{SSBtools::dummy_aggregate()}}.}
+
 \item{action_unused_dots}{Character string controlling how unused arguments
 in \code{...} are handled. Internally uses \code{\link[ellipsis:check_dots_used]{ellipsis::check_dots_used()}} with a
 custom action. One of "warn", "abort", "inform", or "none". The value "none"
 disables the check entirely. The default is taken from
-\code{getOption("GaussSuppression.action_unused_dots")}, falling back to "inform"
+\code{getOption("GaussSuppression.action_unused_dots")}, falling back to "warn"
 if the option is not set. Users can change the default globally with e.g.
 \code{options(GaussSuppression.action_unused_dots = "abort")}.}
 
@@ -303,7 +329,7 @@ secondary suppression by Gaussian elimination by \code{\link[SSBtools]{GaussSupp
 \details{
 The supplied functions for generating \code{\link[SSBtools]{GaussSuppression}} input takes the following arguments:
 \code{crossTable},  \code{x}, \code{freq}, \code{num}, \code{weight}, \code{maxN}, \code{protectZeros}, \code{secondaryZeros}, \code{data}, \code{freqVar}, \code{numVar}, \code{weightVar}, \code{charVar}, \code{dimVar}
-\code{aggregatePackage}, \code{aggregateNA}, \code{aggregateBaseOrder}, \code{rowGroupsPackage}, \code{structuralEmpty}, and \code{...}.
+\code{aggregatePackage}, \code{aggregateNA}, \code{aggregateBaseOrder}, \code{rowGroupsPackage}, \code{structuralEmpty},  \code{da_out}, and \code{...}.
 where the two first are  \code{\link[SSBtools]{ModelMatrix}} outputs (\code{modelMatrix} renamed to \code{x}).
 The vector, \code{freq}, is aggregated counts (\code{t(x) \%*\% data[[freqVar]]}).
 In addition, the supplied \code{singleton} function also takes \code{nUniqueVar} and (output from) \code{primary} as input.
