@@ -1,13 +1,13 @@
-39ea9b623bf2caaad705bc54ff1a3eca *DESCRIPTION
+ce541466c2a208a63056625c558bedd6 *DESCRIPTION
 6d8599996ef5a04e809f41dc75c896a7 *LICENSE
-99f38a4c30d5052b3bd6cb7121d22620 *NAMESPACE
-9e6d0b8c245d860b38c1201ab0aa157e *NEWS.md
+04cd7d185cb140edc83e573c41afe667 *NAMESPACE
+b8b50a6bd0a249fb26051be397cec37d *NEWS.md
 efa094da7960e6e6a39b0e24537cb9a0 *R/AdditionalSuppression.R
 68a2efe8124a392a6b86c6c01c3c6d38 *R/Candidates.R
 339285f076d75af648887bf4da59bf01 *R/ChainedSuppression.R
 728c80d9e9fa89696b16c445b671643d *R/FixRiskyIntervals.R
 010e89dee43dca7b55a8791c499b7da8 *R/GaussSuppressDec.R
-17c73133baf31f73c4a0f317d0ff9c3e *R/GaussSuppressionFromData.R
+52d00c676a4caa059f1476a9244997c1 *R/GaussSuppressionFromData.R
 bda12952840989508593f1a0a0b54cbe *R/GaussSuppressionTwoWay.R
 a9f6a808770cf0b5109632df8d60fdbf *R/GaussSuppression_with_intervals.R
 b41fa9fb06df19b909342eb951757127 *R/GetDefault.R
@@ -22,7 +22,7 @@ c6c049ecb0e4c8061340d343e39ea911 *R/LazyLinkedTables.R
 5e5ff57667bd0ad7347e573bb687d373 *R/Ncontributors.R
 82c34d3f66eb65387cf95c85e1a50a7c *R/NewIndependentIdx.R
 3793bed30cd2812686bb30f2668a35fa *R/OutputFunction.R
-f23d78a074b56ac95c0362600c444b45 *R/PackageSpecs.R
+053942df5dcf08d62fb8d103a6248626 *R/PackageSpecs.R
 8934c0084f025d7a0baf75241caeaea3 *R/Primary.R
 7fb347e9c767c84c88592c84f2181418 *R/PrimaryFromRisky.R
 b39e597332fefe76a133327da2364687 *R/PrimaryFromSuppressedData.R
@@ -32,7 +32,7 @@ f46ac7645d0fc6c62d83a6198258b0e3 *R/Singleton.R
 a2768f10bac878605bcfe2a8713767df *R/SuppressDirectDisclosure.R
 bb202a48c31170634d6e6eb82bce3884 *R/SuppressDominantCells.R
 8ea4645433aa0b48a3a365000f286ff9 *R/SuppressFewContributors.R
-15cb257796891e3eac15bdce9614813c *R/SuppressKDisclosure.R
+f0992d57e72f71a33b5aa6725f45c2e1 *R/SuppressKDisclosure.R
 7e6033fdd61137aef7439ffe4fc614da *R/SuppressLinkedTables.R
 a1bede371782a66b3863c094f23bea27 *R/SuppressSmallCounts.R
 e9141aed7a07bac9f4a1e93ce348ba40 *R/SuppressionFromDecimals.R
@@ -66,7 +66,7 @@ a374c3c7a43b7ab0cff3205f95fc335b *man/GetDefault.Rd
 33fb637f32cd2e04b836ee8794e8a768 *man/HierarchyContributors.Rd
 57212dbbcbede24e98d2afc43d41907d *man/IncrementalTimeSuppression.Rd
 bdb96dfb9f9d5fed70c340d58ab96784 *man/IntervalLimits.Rd
-979fcc89eb8428cd12cf56a14aaf7791 *man/KDisclosurePrimary.Rd
+4dc305ae0283ee55afb0e1d4d14c2129 *man/KDisclosurePrimary.Rd
 51a2a47d7ccf6583add4976d0e6a58c0 *man/LazyLinkedTables.Rd
 118d076bad08674bcfbade8317a4ef52 *man/MagnitudeRule.Rd
 263e358ede89066731b817c33d6c8207 *man/MaxContribution.Rd
@@ -74,7 +74,7 @@ bb3602fa11affed6f2fffd7309487da2 *man/NContributorsRule.Rd
 69dc7844f610b1b5fe0cab1f7f86f9f5 *man/Ncontributors.Rd
 31faf22017087776dc0175fadc02c9e1 *man/NcontributorsHolding.Rd
 dd21756ccd584e80724d5b16c77c7713 *man/NcontributorsRule_identical.Rd
-8d40e54ee89f3fec661a79e91f01cfd3 *man/PackageSpecs.Rd
+cf57789e5c3f99b5aadc73ea97cc36e7 *man/PackageSpecs.Rd
 8f0078b6ef972b8bb14308222bda9cad *man/PrimaryDefault.Rd
 3a09c59a8db10204620d9bda7f144541 *man/PrimaryFromRiskyDefault.Rd
 e3c06ee1b6e304b5e4a4c3c4fc76fb0a *man/PrimaryFromSuppressedData.Rd
@@ -84,11 +84,12 @@ cdc2bde6d93366f95ca114e174f0e8e4 *man/SingletonUniqueContributor.Rd
 005fd4ccb894e8cae1cdfc4565be0b4c *man/SuppressDirectDisclosure.Rd
 3420ee59836176b9d2a893407b88be37 *man/SuppressDominantCells.Rd
 98aa63f1b91bf05ab25e18725ebb2876 *man/SuppressFewContributors.Rd
-1114f6465dfa75c9c25437a1e5473070 *man/SuppressKDisclosure.Rd
+2f69835dd7e09093de98cae79966cc31 *man/SuppressKDisclosure.Rd
 ef895ea30a220e369251247a5dfff9e4 *man/SuppressLinkedTables.Rd
 4c566b30c74ad3fe29ae4ed807fc121d *man/SuppressSmallCounts.Rd
 65f0f4d568a4b41f80d93ecee1524fcf *man/SuppressionFromDecimals.Rd
 e3eb44c4dc7b68da70ae5bb5d16325f5 *man/X_from_mc.Rd
+e9bf4352388ad5a5511e7b8ba73f626b *man/default_targeting.Rd
 1efe0910771a1e98b4558e8af6ef67aa *man/figures/logo.png
 c6ba84805674ebf0f8ef36664cf885a7 *man/reexports.Rd
 05b132103c92d1e4238ffa17c0a78190 *tests/testthat.R
@@ -98,6 +99,7 @@ e266346460ad05be9f7dc9e9fd778a52 *tests/testthat/test-GaussSuppressDec.R
 59512644cb3c196ca84b3066ad01f4f6 *tests/testthat/test-GaussSuppressionFromData.R
 8fd3354c527eafd3a52a3a93d320e242 *tests/testthat/test-GaussSuppressionTwoWay.R
 2ec6663d44a3659deed3308af92e6dba *tests/testthat/test-LinkedSuppression.R
+aa58c7ba557f8fe4f8d20669320aa3af *tests/testthat/test-SuppressKDisclosure.R
 c5504bdeb24d2948a1dc72934e7aa57b *tests/testthat/test-Wrappers.R
 bbfa0820cf9679b244cb49fd15b0094e *tests/testthat/testdata/d53.rds
 a834cf4ece3d32b756f24b1843a9eed2 *vignettes/GaussKable.R
